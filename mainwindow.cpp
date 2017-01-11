@@ -1,11 +1,12 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+extern MainWindow *m_window;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    m_window = this;
 
     QString mydb_name = QString("MY_MESDB_OI_%1").arg(QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss"));
     if(!my_mesdb.contains(mydb_name)){
@@ -45,9 +46,10 @@ MainWindow::MainWindow(QWidget *parent) :
         tempdata.setMachine_code(query.value("machine_code").toString());
         int count = ui->deposition_listview->rowCount();
         ui->deposition_listview->insertRow(count);
-        ui->deposition_listview->setCellWidget(count,0,new QLabel(tempdata.getMachine_name()));
-        ui->deposition_listview->setCellWidget(count,1,new QLabel(""));
+        ui->deposition_listview->setCellWidget(count,0,new B_Label(tempdata.getMachine_name(),tempdata.getMachine_name(),tempdata.getMachine_code(),deposition));
+        ui->deposition_listview->setCellWidget(count,1,new B_Label("",tempdata.getMachine_name(),tempdata.getMachine_code(),deposition));
         ui->deposition_listview->setCellWidget(count,2,new QLabel(tempdata.getMachine_code()));
+
         depostiondata_list.append(tempdata);
     }
     Th_monitering *depostion_thread = new Th_monitering(depostiondata_list);
@@ -61,8 +63,8 @@ MainWindow::MainWindow(QWidget *parent) :
         tempdata.setMachine_code(query.value("machine_code").toString());
         int count = ui->light_listview->rowCount();
         ui->light_listview->insertRow(count);
-        ui->light_listview->setCellWidget(count,0,new QLabel(QString("%1").arg(tempdata.getMachine_name())));
-        ui->light_listview->setCellWidget(count,1,new QLabel(""));
+        ui->light_listview->setCellWidget(count,0,new B_Label(tempdata.getMachine_name(),tempdata.getMachine_name(),tempdata.getMachine_code(),light));
+        ui->light_listview->setCellWidget(count,1,new B_Label("",tempdata.getMachine_name(),tempdata.getMachine_code(),light));
         ui->light_listview->setCellWidget(count,2,new QLabel(tempdata.getMachine_code()));
         lightdata_list.append(tempdata);
     }
@@ -77,8 +79,8 @@ MainWindow::MainWindow(QWidget *parent) :
         tempdata.setMachine_code(query.value("machine_code").toString());
         int count = ui->eatching_listview->rowCount();
         ui->eatching_listview->insertRow(count);
-        ui->eatching_listview->setCellWidget(count,0,new QLabel(QString("%1").arg(tempdata.getMachine_name())));
-        ui->eatching_listview->setCellWidget(count,1,new QLabel(""));
+        ui->eatching_listview->setCellWidget(count,0,new B_Label(tempdata.getMachine_name(),tempdata.getMachine_name(),tempdata.getMachine_code(),eatching));
+        ui->eatching_listview->setCellWidget(count,1,new B_Label("",tempdata.getMachine_name(),tempdata.getMachine_code(),eatching));
         ui->eatching_listview->setCellWidget(count,2,new QLabel(tempdata.getMachine_code()));
         eatchingdata_list.append(tempdata);
     }
@@ -93,9 +95,10 @@ MainWindow::MainWindow(QWidget *parent) :
         tempdata.setMachine_code(query.value("machine_code").toString());
         int count = ui->probe_listview->rowCount();
         ui->probe_listview->insertRow(count);
-        ui->probe_listview->setCellWidget(count,0,new QLabel(QString("%1").arg(tempdata.getMachine_name())));
-        ui->probe_listview->setCellWidget(count,1,new QLabel(""));
+        ui->probe_listview->setCellWidget(count,0,new B_Label(tempdata.getMachine_name(),tempdata.getMachine_name(),tempdata.getMachine_code(),all_probe));
+        ui->probe_listview->setCellWidget(count,1,new B_Label("",tempdata.getMachine_name(),tempdata.getMachine_code(),all_probe));
         ui->probe_listview->setCellWidget(count,2,new QLabel(tempdata.getMachine_code()));
+
         probedata_list.append(tempdata);
     }
     Th_monitering *probe_thread = new Th_monitering(probedata_list);
@@ -110,8 +113,8 @@ MainWindow::MainWindow(QWidget *parent) :
         tempdata.setMachine_code(query.value("machine_code").toString());
         int count = ui->probe1_listview->rowCount();
         ui->probe1_listview->insertRow(count);
-        ui->probe1_listview->setCellWidget(count,0,new QLabel(QString("%1").arg(tempdata.getMachine_name())));
-        ui->probe1_listview->setCellWidget(count,1,new QLabel(""));
+        ui->probe1_listview->setCellWidget(count,0,new B_Label(tempdata.getMachine_name(),tempdata.getMachine_name(),tempdata.getMachine_code(),all_probe));
+        ui->probe1_listview->setCellWidget(count,1,new B_Label("",tempdata.getMachine_name(),tempdata.getMachine_code(),all_probe));
         ui->probe1_listview->setCellWidget(count,2,new QLabel(tempdata.getMachine_code()));
         probe1data_list.append(tempdata);
     }
@@ -137,6 +140,12 @@ MainWindow::MainWindow(QWidget *parent) :
     history_model.setHeaderData(2,Qt::Horizontal,tr("machine_name"));
     history_model.setHeaderData(3,Qt::Horizontal,tr("statue"));
 
+    query1.exec(QString("select * from OI_system_machine_table order by machine_name asc"));
+    ui->machine_name_box->addItem(tr("ALL"));
+    while(query1.next()){
+        ui->machine_name_box->addItem(query1.value("machine_name").toString(),QVariant(query1.value("machine_code").toString()));
+    }
+
 }
 
 QString MainWindow::getCurrent_machine_name() const
@@ -144,9 +153,17 @@ QString MainWindow::getCurrent_machine_name() const
     return current_machine_name;
 }
 
+
 void MainWindow::setCurrent_machine_name(const QString &value)
 {
     current_machine_name = value;
+}
+
+void MainWindow::on_search_btn_clicked_connection()
+{
+    ui->end_time->setDate(QDate::currentDate());
+    ui->end_time->setTime(QTime::currentTime().addSecs(20));
+    on_search_btn_clicked();
 }
 
 MainWindow::~MainWindow()
@@ -226,28 +243,28 @@ void MainWindow::probe1_slot(machine_statue_data data)
 
 void MainWindow::on_RUN_btn_clicked()
 {
-    login_form *widget = new login_form("RUN",current_machine_code,current_machine_name);
+    login_form *widget = new login_form("RUN",current_machine_code,current_machine_name,current_process);
     widget->show();
 }
 void MainWindow::on_ENGR1_btn_clicked()
 {
-    login_form *widget = new login_form("ENGR1",current_machine_code,current_machine_name);
+    login_form *widget = new login_form("ENGR1",current_machine_code,current_machine_name,current_process);
     widget->show();
 }
 void MainWindow::on_SCHDOWN1_btn_clicked()
 {
-    login_form *widget = new login_form("SCHDOWN1",current_machine_code,current_machine_name);
+    login_form *widget = new login_form("SCHDOWN1",current_machine_code,current_machine_name,current_process);
     widget->show();
 }
 
 void MainWindow::on_USCHDOWN3_btn_clicked()
 {
-    login_form *widget = new login_form("USCHDOWN3",current_machine_code,current_machine_name);
+    login_form *widget = new login_form("USCHDOWN3",current_machine_code,current_machine_name,current_process);
     widget->show();
 }
 void MainWindow::on_WAIT_btn_clicked()
 {
-    login_form *widget = new login_form("WAIT",current_machine_code,current_machine_name);
+    login_form *widget = new login_form("WAIT",current_machine_code,current_machine_name,current_process);
     widget->show();
 }
 
@@ -256,38 +273,95 @@ void MainWindow::on_deposition_listview_clicked(const QModelIndex &index)
 {
     current_machine_name = ((QLabel *)ui->deposition_listview->cellWidget(index.row(),0))->text();
     current_machine_code = ((QLabel *)ui->deposition_listview->cellWidget(index.row(),2))->text();
+    current_process = tr("deposition");
 }
 
 void MainWindow::on_light_listview_clicked(const QModelIndex &index)
 {
     current_machine_name = ((QLabel *)ui->light_listview->cellWidget(index.row(),0))->text();
     current_machine_code = ((QLabel *)ui->light_listview->cellWidget(index.row(),2))->text();
+    current_process = tr("light");
 }
 
 void MainWindow::on_eatching_listview_clicked(const QModelIndex &index)
 {
     current_machine_name = ((QLabel *)ui->eatching_listview->cellWidget(index.row(),0))->text();
     current_machine_code = ((QLabel *)ui->eatching_listview->cellWidget(index.row(),2))->text();
+    current_process = tr("eatching");
 }
 
 void MainWindow::on_probe_listview_clicked(const QModelIndex &index)
 {
     current_machine_name = ((QLabel *)ui->probe_listview->cellWidget(index.row(),0))->text();
     current_machine_code = ((QLabel *)ui->probe_listview->cellWidget(index.row(),2))->text();
+    current_process = tr("ALL probe");
 }
 
 void MainWindow::on_probe1_listview_clicked(const QModelIndex &index)
 {
     current_machine_name = ((QLabel *)ui->probe1_listview->cellWidget(index.row(),0))->text();
     current_machine_code = ((QLabel *)ui->probe1_listview->cellWidget(index.row(),2))->text();
+    current_process = tr("ALL probe");
 }
 
 void MainWindow::on_search_btn_clicked()
 {
     QSqlQuery query1(my_mesdb);
-    query1.exec(QString("select event_datetime,name,machine_name,event_type from OI_system_history where event_datetime BETWEEN  '%1' AND '%2' order by event_datetime desc;")
-                .arg(ui->start_time->dateTime().toString("yyyy-MM-dd hh:mm:ss")).arg(ui->end_time->dateTime().toString("yyyy-MM-dd hh:mm:ss")));
+    if(ui->processbox->currentText()==tr("ALL") && ui->machine_name_box->currentText()==tr("ALL")){
+        query1.exec(QString("select event_datetime,name,machine_name,event_type from OI_system_history where event_datetime BETWEEN  '%1' AND '%2' order by event_datetime desc;")
+                    .arg(ui->start_time->dateTime().toString("yyyy-MM-dd hh:mm:ss")).arg(ui->end_time->dateTime().toString("yyyy-MM-dd hh:mm:ss")));
 
+    }else if(ui->machine_name_box->currentText()==tr("ALL")){
+        query1.exec(QString("select event_datetime,name,machine_name,event_type from OI_system_history where event_datetime BETWEEN '%1' AND '%2' AND process = '%3' order by event_datetime desc;")
+                    .arg(ui->start_time->dateTime().toString("yyyy-MM-dd hh:mm:ss")).arg(ui->end_time->dateTime().toString("yyyy-MM-dd hh:mm:ss")).arg(ui->processbox->currentText()));
+
+    }else {
+        query1.exec(QString("select event_datetime,name,machine_name,event_type from OI_system_history where event_datetime BETWEEN '%1' AND '%2' AND machine_name = '%3' order by event_datetime desc;")
+                    .arg(ui->start_time->dateTime().toString("yyyy-MM-dd hh:mm:ss")).arg(ui->end_time->dateTime().toString("yyyy-MM-dd hh:mm:ss")).arg(ui->machine_name_box->currentText()));
+
+    }
     history_model.setQuery(query1);
     history_model.submit();
+}
+
+void MainWindow::on_processbox_currentIndexChanged(const QString &arg1)
+{
+    QSqlQuery query1(my_mesdb);
+    QString deposition = tr("deposition");
+    QString light = tr("light");
+    QString eatching = tr("eatching");
+    QString all_probe = tr("ALL probe");
+    QString all = tr("ALL");
+    ui->machine_name_box->clear();
+    if(arg1 == deposition){
+        query1.exec(QString("select * from OI_system_machine_table where Main_process LIKE '%1%' order by number asc").arg(deposition));
+        ui->machine_name_box->addItem(all);
+        while(query1.next()){
+            ui->machine_name_box->addItem(query1.value("machine_name").toString(),QVariant(query1.value("machine_code").toString()));
+        }
+    }else if(arg1 == light){
+        query1.exec(QString("select * from OI_system_machine_table where Main_process LIKE '%1%' order by number asc").arg(light));
+        ui->machine_name_box->addItem(all);
+        while(query1.next()){
+            ui->machine_name_box->addItem(query1.value("machine_name").toString(),QVariant(query1.value("machine_code").toString()));
+        }
+    }else if(arg1 == eatching){
+        query1.exec(QString("select * from OI_system_machine_table where Main_process LIKE '%1%' order by number asc").arg(eatching));
+        ui->machine_name_box->addItem(all);
+        while(query1.next()){
+            ui->machine_name_box->addItem(query1.value("machine_name").toString(),QVariant(query1.value("machine_code").toString()));
+        }
+    }else if(arg1 ==all_probe){
+        query1.exec(QString("select * from OI_system_machine_table where Main_process LIKE '%1%' order by number asc").arg(all_probe));
+        ui->machine_name_box->addItem(all);
+        while(query1.next()){
+            ui->machine_name_box->addItem(query1.value("machine_name").toString(),QVariant(query1.value("machine_code").toString()));
+        }
+    }else if(arg1 ==all){
+        query1.exec(QString("select * from OI_system_machine_table order by machine_name asc"));
+        ui->machine_name_box->addItem(all);
+        while(query1.next()){
+            ui->machine_name_box->addItem(query1.value("machine_name").toString(),QVariant(query1.value("machine_code").toString()));
+        }
+    }
 }

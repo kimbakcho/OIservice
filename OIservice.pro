@@ -13,6 +13,8 @@ TEMPLATE = app
 
 TRANSLATIONS += lang_oi_ko.ts
 
+RC_FILE = myapp.rc
+
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -23,7 +25,8 @@ SOURCES += main.cpp\
     login_form.cpp \
     machine_list_item.cpp \
     machine_statue_data.cpp \
-    th_monitering.cpp
+    th_monitering.cpp \
+    b_label.cpp
 
 HEADERS  += mainwindow.h \
     oistystemsoap/oisystem.nsmap \
@@ -35,7 +38,8 @@ HEADERS  += mainwindow.h \
     login_form.h \
     machine_list_item.h \
     machine_statue_data.h \
-    th_monitering.h
+    th_monitering.h \
+    b_label.h
 
 FORMS    += mainwindow.ui \
     operatingratio/operating_ratio_action.ui \

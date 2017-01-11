@@ -13,6 +13,7 @@
 #include <oistystemsoap/oisystemOIWebServiceSoapProxy.h>
 #include <QMessageBox>
 
+
 #define DBID "EIS"
 #define DBPW "wisolfab!"
 
@@ -27,11 +28,12 @@ class login_form : public QWidget
 public:
     explicit login_form(QWidget *parent = 0);
     login_form(QString event_name,QString machine_code,QWidget *parent = 0);
-    login_form(QString event_name,QString machine_code,QString machine_name, QWidget *parent = 0);
+    login_form(QString event_name, QString machine_code, QString machine_name, QString process, QWidget *parent = 0);
     QNetworkAccessManager menager;
     QString loginname;
     QString event_name;
     QString machine_name;
+    QString process;
     bool loginflag;
     OIWebServiceSoapProxy soap_event;
     _ns1__OIWebEquipmentStatus data;

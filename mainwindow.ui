@@ -18,7 +18,7 @@
     <item row="1" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -346,8 +346,61 @@
           </property>
          </spacer>
         </item>
-        <item row="0" column="0">
+        <item row="0" column="0" colspan="2">
          <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>공정</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="processbox">
+            <item>
+             <property name="text">
+              <string>전체</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>성막</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>노광</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>에칭</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>프로브</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string>설비</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="machine_name_box">
+            <property name="minimumSize">
+             <size>
+              <width>170</width>
+              <height>0</height>
+             </size>
+            </property>
+           </widget>
+          </item>
           <item>
            <widget class="QDateTimeEdit" name="start_time">
             <property name="displayFormat">
@@ -387,6 +440,19 @@
              <string>검색</string>
             </property>
            </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
           </item>
          </layout>
         </item>

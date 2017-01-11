@@ -12,9 +12,11 @@
 #include <th_monitering.h>
 #include <login_form.h>
 #include <QSqlQueryModel>
+#include <b_label.h>
 
 #define DBID "EIS"
 #define DBPW "wisolfab!"
+
 namespace Ui {
 class MainWindow;
 }
@@ -28,11 +30,15 @@ public:
     QSqlDatabase my_mesdb;
     QString current_machine_code;
     QString current_machine_name;
+    QString current_process;
     QSqlQueryModel  history_model;
     ~MainWindow();
 
     QString getCurrent_machine_name() const;
+
     void setCurrent_machine_name(const QString &value);
+
+    void on_search_btn_clicked_connection();
 
 private slots:
     void deposition_slot(machine_statue_data data);
@@ -62,6 +68,8 @@ private slots:
     void on_WAIT_btn_clicked();
 
     void on_search_btn_clicked();
+
+    void on_processbox_currentIndexChanged(const QString &arg1);
 
 private:
     Ui::MainWindow *ui;

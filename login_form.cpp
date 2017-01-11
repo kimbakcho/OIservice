@@ -1,6 +1,7 @@
 #include "login_form.h"
 #include "ui_login_form.h"
-
+#include <mainwindow.h>
+extern MainWindow *m_window;
 login_form::login_form(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::login_form)
@@ -49,7 +50,7 @@ login_form::login_form(QString event_name, QString machine_code, QWidget *parent
         my_mesdb = QSqlDatabase::database(mydb_name);
     }
 }
-login_form::login_form(QString event_name, QString machine_code,QString machine_name, QWidget *parent) :
+login_form::login_form(QString event_name, QString machine_code,QString machine_name,QString process, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::login_form)
 {
@@ -70,6 +71,7 @@ login_form::login_form(QString event_name, QString machine_code,QString machine_
     equip= machine_code.toStdString();
     eventid = event_name.toStdString();
     this->machine_name = machine_name;
+    this->process = process;
 
     QString mydb_name = QString("MY_MESDB_OI_%1").arg(QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss"));
     if(!my_mesdb.contains(mydb_name)){
@@ -168,17 +170,18 @@ void login_form::read_finish(QNetworkReply *reply)
             QSqlQuery query(my_mesdb);
             QString query_txt = QString("INSERT INTO `OI_system_history` "
                                         "(`event_datetime`, `name`, "
-                                        "`machine_name`, `event_type`) "
+                                        "`machine_name`, `event_type`,`process`) "
                                         "VALUES ("
-                                        "'%1', '%2', '%3', '%4');")
+                                        "'%1', '%2', '%3', '%4' , '%5');")
                                         .arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"))
-                                        .arg(user_name).arg(machine_name).arg(event_name);
+                                        .arg(user_name).arg(machine_name).arg(event_name).arg(process);
             query.exec(query_txt);
 
             QMessageBox msg;
             msg.setText(tr("ok"));
             msg.addButton(QMessageBox::Ok);
             msg.exec();
+            m_window->on_search_btn_clicked_connection();
         }else {
             QMessageBox msg;
             msg.setText(tr("loginfail"));
