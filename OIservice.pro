@@ -4,17 +4,43 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = OIservice
 TEMPLATE = app
 
+TRANSLATIONS += lang_oi_ko.ts
+
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    oistystemsoap/oisystemC.cpp \
+    oistystemsoap/oisystemOIWebServiceSoapProxy.cpp \
+    oistystemsoap/stdsoap2.cpp \
+    operatingratio/operating_ratio_action.cpp \
+    login_form.cpp \
+    machine_list_item.cpp \
+    machine_statue_data.cpp \
+    th_monitering.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    oistystemsoap/oisystem.nsmap \
+    oistystemsoap/oisystemH.h \
+    oistystemsoap/oisystemOIWebServiceSoapProxy.h \
+    oistystemsoap/oisystemStub.h \
+    oistystemsoap/stdsoap2.h \
+    operatingratio/operating_ratio_action.h \
+    login_form.h \
+    machine_list_item.h \
+    machine_statue_data.h \
+    th_monitering.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    operatingratio/operating_ratio_action.ui \
+    login_form.ui \
+    machine_list_item.ui
+
+RESOURCES += \
+    resource.qrc
