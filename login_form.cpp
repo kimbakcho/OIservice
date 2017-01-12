@@ -134,7 +134,19 @@ void login_form::read_finish(QNetworkReply *reply)
     QString strdata(srcdata);
     QString fromurl = reply->url().toString();
     if(fromurl == "http://gw.wisol.co.kr/ekp/login.do"){
+
         QStringList temp_list = strdata.split(",");
+        if(temp_list.count()<2){
+            QMessageBox msg;
+            msg.setText(tr("don't have id"));
+            msg.addButton(QMessageBox::Ok);
+            msg.exec();
+
+            reply->deleteLater();
+
+            return ;
+
+        }
         QString temp_name = temp_list.at(1);
         temp_list = temp_name.split(":");
         temp_name = temp_list.at(1);
@@ -149,6 +161,7 @@ void login_form::read_finish(QNetworkReply *reply)
         QUrl longin_url(requsturl);
         QNetworkRequest requst(longin_url);
         menager.get(requst);
+        reply->deleteLater();
     }else if(fromurl.indexOf("cmd=epLogin&pop3=N&saveid=N&securchk=N")>=0){
         if(strdata.indexOf("LOGIN_SUCCESS")>=0){
             qDebug()<<"LOGIN_SUCCESS";
