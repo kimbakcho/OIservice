@@ -26,7 +26,11 @@ SOURCES += main.cpp\
     machine_list_item.cpp \
     machine_statue_data.cpp \
     th_monitering.cpp \
-    b_label.cpp
+    b_label.cpp \
+    manager_login.cpp \
+    add_machine_dialog.cpp \
+    modify_machine_dialog.cpp \
+    oi_data.cpp
 
 HEADERS  += mainwindow.h \
     oistystemsoap/oisystem.nsmap \
@@ -39,12 +43,19 @@ HEADERS  += mainwindow.h \
     machine_list_item.h \
     machine_statue_data.h \
     th_monitering.h \
-    b_label.h
+    b_label.h \
+    manager_login.h \
+    add_machine_dialog.h \
+    modify_machine_dialog.h \
+    oi_data.h
 
 FORMS    += mainwindow.ui \
     operatingratio/operating_ratio_action.ui \
     login_form.ui \
-    machine_list_item.ui
+    machine_list_item.ui \
+    manager_login.ui \
+    add_machine_dialog.ui \
+    modify_machine_dialog.ui
 
 RESOURCES += \
     resource.qrc

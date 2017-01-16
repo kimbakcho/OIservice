@@ -15,7 +15,7 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0">
+    <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
        <number>0</number>
@@ -36,102 +36,10 @@
              <x>0</x>
              <y>0</y>
              <width>1613</width>
-             <height>624</height>
+             <height>593</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_2">
-            <item row="1" column="3">
-             <widget class="QTableWidget" name="probe_listview">
-              <attribute name="horizontalHeaderDefaultSectionSize">
-               <number>150</number>
-              </attribute>
-              <attribute name="horizontalHeaderStretchLastSection">
-               <bool>true</bool>
-              </attribute>
-              <column>
-               <property name="text">
-                <string>설비명</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>설비상태</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>설비코드</string>
-               </property>
-              </column>
-             </widget>
-            </item>
-            <item row="1" column="2">
-             <widget class="QTableWidget" name="eatching_listview">
-              <attribute name="horizontalHeaderDefaultSectionSize">
-               <number>150</number>
-              </attribute>
-              <attribute name="horizontalHeaderStretchLastSection">
-               <bool>true</bool>
-              </attribute>
-              <column>
-               <property name="text">
-                <string>설비명</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>설비상태</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>설비코드</string>
-               </property>
-              </column>
-             </widget>
-            </item>
-            <item row="0" column="3" colspan="2">
-             <widget class="QLabel" name="label_2">
-              <property name="font">
-               <font>
-                <pointsize>12</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>프로브</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="4">
-             <widget class="QTableWidget" name="probe1_listview">
-              <attribute name="horizontalHeaderDefaultSectionSize">
-               <number>150</number>
-              </attribute>
-              <attribute name="horizontalHeaderStretchLastSection">
-               <bool>true</bool>
-              </attribute>
-              <column>
-               <property name="text">
-                <string>설비명</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>설비상태</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>설비코드</string>
-               </property>
-              </column>
-             </widget>
-            </item>
             <item row="1" column="1">
              <widget class="QTableWidget" name="light_listview">
               <attribute name="horizontalHeaderDefaultSectionSize">
@@ -236,6 +144,98 @@
               </property>
              </widget>
             </item>
+            <item row="1" column="3">
+             <widget class="QTableWidget" name="probe_listview">
+              <attribute name="horizontalHeaderDefaultSectionSize">
+               <number>150</number>
+              </attribute>
+              <attribute name="horizontalHeaderStretchLastSection">
+               <bool>true</bool>
+              </attribute>
+              <column>
+               <property name="text">
+                <string>설비명</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>설비상태</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>설비코드</string>
+               </property>
+              </column>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QTableWidget" name="eatching_listview">
+              <attribute name="horizontalHeaderDefaultSectionSize">
+               <number>150</number>
+              </attribute>
+              <attribute name="horizontalHeaderStretchLastSection">
+               <bool>true</bool>
+              </attribute>
+              <column>
+               <property name="text">
+                <string>설비명</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>설비상태</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>설비코드</string>
+               </property>
+              </column>
+             </widget>
+            </item>
+            <item row="0" column="3" colspan="2">
+             <widget class="QLabel" name="label_2">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>프로브</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="4">
+             <widget class="QTableWidget" name="probe1_listview">
+              <attribute name="horizontalHeaderDefaultSectionSize">
+               <number>150</number>
+              </attribute>
+              <attribute name="horizontalHeaderStretchLastSection">
+               <bool>true</bool>
+              </attribute>
+              <column>
+               <property name="text">
+                <string>설비명</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>설비상태</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>설비코드</string>
+               </property>
+              </column>
+             </widget>
+            </item>
            </layout>
           </widget>
          </widget>
@@ -305,6 +305,51 @@
             </property>
             <property name="text">
              <string>대기</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="managermode_btn">
+            <property name="text">
+             <string>관리자모드</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>1</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="add_machine">
+            <property name="text">
+             <string>추가</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="modify_machine">
+            <property name="text">
+             <string>수정</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="delete_macihne">
+            <property name="text">
+             <string>제거</string>
             </property>
            </widget>
           </item>
@@ -455,6 +500,67 @@
            </spacer>
           </item>
          </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>레포트</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="0" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QDateEdit" name="research_start_date">
+            <property name="calendarPopup">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_8">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>~</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDateEdit" name="research_end_date">
+            <property name="calendarPopup">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="calc_btn">
+            <property name="text">
+             <string>가동률 계산</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="2" column="0">
+         <widget class="QTableView" name="detail_table"/>
+        </item>
+        <item row="2" column="1">
+         <widget class="QTableView" name="total_table"/>
+        </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="show_detail_total">
+          <property name="text">
+           <string>전체보기</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>

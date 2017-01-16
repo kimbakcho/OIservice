@@ -12,6 +12,7 @@
 
 #include <oistystemsoap/oisystemOIWebServiceSoapProxy.h>
 #include <QMessageBox>
+#include <QElapsedTimer>
 
 
 #define DBID "EIS"
@@ -33,6 +34,7 @@ public:
     QString loginname;
     QString event_name;
     QString machine_name;
+    QString machine_code;
     QString process;
     bool loginflag;
     OIWebServiceSoapProxy soap_event;
@@ -56,6 +58,7 @@ public:
 
     QString getUser_name() const;
     void setUser_name(const QString &value);
+    QString from_sec_to_timestr(int secs);
 
 private slots:
     void read_finish(QNetworkReply *reply);

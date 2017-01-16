@@ -72,6 +72,7 @@ login_form::login_form(QString event_name, QString machine_code,QString machine_
     eventid = event_name.toStdString();
     this->machine_name = machine_name;
     this->process = process;
+    this->machine_code = machine_code;
 
     QString mydb_name = QString("MY_MESDB_OI_%1").arg(QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss"));
     if(!my_mesdb.contains(mydb_name)){
@@ -100,6 +101,15 @@ QString login_form::getUser_name() const
 void login_form::setUser_name(const QString &value)
 {
     user_name = value;
+}
+
+QString login_form::from_sec_to_timestr(int secs)
+{
+    int hour = secs/3600;
+    int min = (secs%3600)/60;
+    int sec = (secs%3600)%60;
+    QString reslut = QString("%1:%2:%3").arg(hour).arg(min).arg(sec);
+    return reslut;
 }
 
 QString login_form::getMachine_name() const
@@ -180,15 +190,53 @@ void login_form::read_finish(QNetworkReply *reply)
             }else {
 
             }
+            QDateTime current_datetime = QDateTime::currentDateTime();
+            QString currenttime_str =current_datetime.toString("yyyy-MM-dd hh:mm:ss");
             QSqlQuery query(my_mesdb);
             QString query_txt = QString("INSERT INTO `OI_system_history` "
                                         "(`event_datetime`, `name`, "
                                         "`machine_name`, `event_type`,`process`) "
                                         "VALUES ("
                                         "'%1', '%2', '%3', '%4' , '%5');")
-                                        .arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"))
+                                        .arg(currenttime_str)
                                         .arg(user_name).arg(machine_name).arg(event_name).arg(process);
             query.exec(query_txt);
+            if(event_name == tr("RUN")){
+                query_txt = QString("select * from OI_system_time where run_time is NULL "
+                                    "AND machine_code = '%1' "
+                                    "AND machine_name = '%2' order by stop_time desc LIMIT 1").arg(machine_code).arg(machine_name);
+                query.exec(query_txt);
+                if(query.next()){
+                    QDateTime stop_time = query.value("stop_time").toDateTime();
+                    qint64 secs = stop_time.secsTo(current_datetime);
+                    QString time_str = from_sec_to_timestr(secs);
+                    query_txt = QString("Update `OI_system_time` SET "
+                                        "run_time = '%1',run_name='%2',stop_time_calc='%3' "
+                                        "Where stop_time = '%5' AND machine_code ='%6'")
+                                        .arg(currenttime_str).arg(user_name).arg(time_str)
+                                        .arg(query.value("stop_time").toDateTime().toString("yyyy-MM-dd hh:mm:ss"))
+                                        .arg(query.value("machine_code").toString());
+                    query.exec(query_txt);
+                    qDebug()<<query.lastQuery();
+                }else {
+
+                }
+            }else {
+                query_txt = QString("select * from OI_system_time where run_time is NULL "
+                                    "AND machine_code = '%1' "
+                                    "AND machine_name = '%2' order by run_time desc LIMIT 1")
+                        .arg(machine_code).arg(machine_name);
+                query.exec(query_txt);
+                if(!query.next()){
+                    query_txt = QString("INSERT INTO `OI_system_time` "
+                                        "(`process`,`machine_name`, `machine_code`, `stop_time`, `stop_name` , `stop_data`) "
+                                        "VALUES ('%1', '%2', '%3', '%4','%5','%6');")
+                                        .arg(process).arg(machine_name).arg(machine_code).arg(currenttime_str).arg(user_name).arg(event_name);
+                    query.exec(query_txt);
+                }else {
+
+                }
+            }
 
             QMessageBox msg;
             msg.setText(tr("ok"));
@@ -200,6 +248,7 @@ void login_form::read_finish(QNetworkReply *reply)
             msg.setText(tr("loginfail"));
             msg.addButton(QMessageBox::Ok);
             msg.exec();
+            ui->login_btn->setEnabled(true);
         }
         reply->deleteLater();
         close();
@@ -226,6 +275,7 @@ void login_form::keyPressEvent(QKeyEvent *event)
 {
     if(event->key()==Qt::Key_Enter){
         on_login_btn_clicked();
+        ui->login_btn->setEnabled(false);
     }
 }
 

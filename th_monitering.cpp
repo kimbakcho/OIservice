@@ -55,6 +55,21 @@ void Th_monitering::run()
             }else if(event_data=="WAIT"){
                 temp_data.setCurrent_event(tr("WAIT"));
                 temp_data.setColor(QColor("#ffff80"));
+            }else if(event_data=="SCHDOWN2"){
+                temp_data.setCurrent_event(tr("SCHDOWN2"));
+                temp_data.setColor(QColor("#ffff80"));
+            }else if(event_data=="USCHDOWN4"){
+                temp_data.setCurrent_event(tr("USCHDOWN4"));
+                temp_data.setColor(QColor("#ffff80"));
+            }else if(event_data=="USCHDOWN1"){
+                temp_data.setCurrent_event(tr("USCHDOWN1"));
+                temp_data.setColor(QColor("#ffff80"));
+            }else if(event_data=="USCHDOWN2"){
+                temp_data.setCurrent_event(tr("USCHDOWN2"));
+                temp_data.setColor(QColor("#ffff80"));
+            }else if(event_data=="NONSCHED"){
+                temp_data.setCurrent_event(tr("NONSCHED"));
+                temp_data.setColor(QColor("#ffff80"));
             }else {
                 temp_data.setCurrent_event(tr("dontknow"));
                 temp_data.setColor(QColor("#ffffff"));
@@ -65,5 +80,6 @@ void Th_monitering::run()
         QThread::sleep(1);
 
     }
+    qDebug()<<"delete";
 
 }

@@ -4,27 +4,27 @@
 <context>
     <name>B_Label</name>
     <message>
-        <location filename="b_label.cpp" line="11"/>
+        <location filename="b_label.cpp" line="12"/>
         <source>RUN</source>
         <translation>정상가동</translation>
     </message>
     <message>
-        <location filename="b_label.cpp" line="12"/>
+        <location filename="b_label.cpp" line="13"/>
         <source>ENGR1</source>
         <translation>공정,설비 테스트</translation>
     </message>
     <message>
-        <location filename="b_label.cpp" line="13"/>
+        <location filename="b_label.cpp" line="14"/>
         <source>SCHDOWN1</source>
         <translation>예방정비</translation>
     </message>
     <message>
-        <location filename="b_label.cpp" line="14"/>
+        <location filename="b_label.cpp" line="15"/>
         <source>USCHDOWN3</source>
         <translation>설비고장</translation>
     </message>
     <message>
-        <location filename="b_label.cpp" line="15"/>
+        <location filename="b_label.cpp" line="16"/>
         <source>WAIT</source>
         <translation>대기</translation>
     </message>
@@ -43,34 +43,34 @@
     </message>
     <message>
         <location filename="mainwindow.ui" line="63"/>
-        <location filename="mainwindow.ui" line="88"/>
-        <location filename="mainwindow.ui" line="130"/>
-        <location filename="mainwindow.ui" line="155"/>
-        <location filename="mainwindow.ui" line="217"/>
+        <location filename="mainwindow.ui" line="125"/>
+        <location filename="mainwindow.ui" line="167"/>
+        <location filename="mainwindow.ui" line="192"/>
+        <location filename="mainwindow.ui" line="234"/>
         <source>설비코드</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="103"/>
-        <location filename="mainwindow.ui" line="382"/>
+        <location filename="mainwindow.ui" line="207"/>
+        <location filename="mainwindow.ui" line="427"/>
         <source>프로브</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="170"/>
-        <location filename="mainwindow.ui" line="377"/>
+        <location filename="mainwindow.ui" line="78"/>
+        <location filename="mainwindow.ui" line="422"/>
         <source>에칭</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="187"/>
-        <location filename="mainwindow.ui" line="372"/>
+        <location filename="mainwindow.ui" line="95"/>
+        <location filename="mainwindow.ui" line="417"/>
         <source>노광</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="232"/>
-        <location filename="mainwindow.ui" line="367"/>
+        <location filename="mainwindow.ui" line="140"/>
+        <location filename="mainwindow.ui" line="412"/>
         <source>성막</source>
         <translation type="unfinished"></translation>
     </message>
@@ -101,113 +101,241 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="317"/>
-        <source>기록</source>
+        <location filename="mainwindow.ui" line="314"/>
+        <source>관리자모드</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="354"/>
-        <source>공정</source>
+        <location filename="mainwindow.ui" line="338"/>
+        <source>추가</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="345"/>
+        <source>수정</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="352"/>
+        <source>제거</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="362"/>
-        <source>전체</source>
+        <source>기록</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="390"/>
-        <source>설비</source>
+        <location filename="mainwindow.ui" line="399"/>
+        <source>공정</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="407"/>
-        <location filename="mainwindow.ui" line="430"/>
+        <source>전체</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="435"/>
+        <source>설비</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="452"/>
+        <location filename="mainwindow.ui" line="475"/>
         <source>yyyy-MM-dd hh:mm:ss</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="423"/>
+        <location filename="mainwindow.ui" line="468"/>
+        <location filename="mainwindow.ui" line="529"/>
         <source>~</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="440"/>
+        <location filename="mainwindow.ui" line="485"/>
         <source>검색</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="mainwindow.ui" line="508"/>
+        <source>레포트</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="546"/>
+        <source>가동률 계산</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="561"/>
+        <source>전체보기</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="mainwindow.ui" line="53"/>
-        <location filename="mainwindow.ui" line="78"/>
-        <location filename="mainwindow.ui" line="120"/>
-        <location filename="mainwindow.ui" line="145"/>
-        <location filename="mainwindow.ui" line="207"/>
+        <location filename="mainwindow.ui" line="115"/>
+        <location filename="mainwindow.ui" line="157"/>
+        <location filename="mainwindow.ui" line="182"/>
+        <location filename="mainwindow.ui" line="224"/>
         <source>설비명</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="58"/>
-        <location filename="mainwindow.ui" line="83"/>
-        <location filename="mainwindow.ui" line="125"/>
-        <location filename="mainwindow.ui" line="150"/>
-        <location filename="mainwindow.ui" line="212"/>
+        <location filename="mainwindow.ui" line="120"/>
+        <location filename="mainwindow.ui" line="162"/>
+        <location filename="mainwindow.ui" line="187"/>
+        <location filename="mainwindow.ui" line="229"/>
         <source>설비상태</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="34"/>
-        <location filename="mainwindow.cpp" line="307"/>
+        <location filename="mainwindow.cpp" line="41"/>
+        <location filename="mainwindow.cpp" line="285"/>
+        <location filename="mainwindow.cpp" line="286"/>
+        <location filename="mainwindow.cpp" line="344"/>
         <source>deposition</source>
         <translation>성막</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="35"/>
-        <location filename="mainwindow.cpp" line="308"/>
+        <location filename="mainwindow.cpp" line="42"/>
+        <location filename="mainwindow.cpp" line="293"/>
+        <location filename="mainwindow.cpp" line="294"/>
+        <location filename="mainwindow.cpp" line="345"/>
         <source>light</source>
         <translation>노광</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="36"/>
-        <location filename="mainwindow.cpp" line="309"/>
+        <location filename="mainwindow.cpp" line="43"/>
+        <location filename="mainwindow.cpp" line="301"/>
+        <location filename="mainwindow.cpp" line="302"/>
+        <location filename="mainwindow.cpp" line="346"/>
         <source>eatching</source>
         <translation>에칭</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="37"/>
+        <location filename="mainwindow.cpp" line="44"/>
+        <location filename="mainwindow.cpp" line="309"/>
         <location filename="mainwindow.cpp" line="310"/>
+        <location filename="mainwindow.cpp" line="317"/>
+        <location filename="mainwindow.cpp" line="347"/>
         <source>ALL probe</source>
         <translation>프로브</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="38"/>
+        <location filename="mainwindow.cpp" line="45"/>
+        <location filename="mainwindow.cpp" line="318"/>
         <source>probe1</source>
         <translation>프로브1</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="137"/>
+        <location filename="mainwindow.cpp" line="144"/>
         <source>time</source>
         <translation>시간</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="138"/>
+        <location filename="mainwindow.cpp" line="145"/>
         <source>name</source>
         <translation>이름</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="139"/>
+        <location filename="mainwindow.cpp" line="146"/>
+        <location filename="mainwindow.cpp" line="664"/>
+        <location filename="mainwindow.cpp" line="685"/>
+        <location filename="mainwindow.cpp" line="913"/>
         <source>machine_name</source>
         <translation>설비이름</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="140"/>
+        <location filename="mainwindow.cpp" line="147"/>
         <source>statue</source>
         <translation>상태</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="143"/>
-        <location filename="mainwindow.cpp" line="311"/>
+        <location filename="mainwindow.cpp" line="150"/>
+        <location filename="mainwindow.cpp" line="324"/>
+        <location filename="mainwindow.cpp" line="328"/>
+        <location filename="mainwindow.cpp" line="348"/>
         <source>ALL</source>
         <translation>전체</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="569"/>
+        <location filename="mainwindow.cpp" line="688"/>
+        <location filename="mainwindow.cpp" line="818"/>
+        <source>PTrate</source>
+        <translation>공정,설비 테스트</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="589"/>
+        <location filename="mainwindow.cpp" line="689"/>
+        <location filename="mainwindow.cpp" line="838"/>
+        <source>PMrate</source>
+        <translation>예방정비</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="609"/>
+        <location filename="mainwindow.cpp" line="690"/>
+        <location filename="mainwindow.cpp" line="858"/>
+        <source>MTrate</source>
+        <translation>설비고장</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="629"/>
+        <location filename="mainwindow.cpp" line="691"/>
+        <location filename="mainwindow.cpp" line="878"/>
+        <source>Waitrate</source>
+        <translation>대기</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="663"/>
+        <location filename="mainwindow.cpp" line="684"/>
+        <location filename="mainwindow.cpp" line="912"/>
+        <source>process</source>
+        <translation>공정</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="665"/>
+        <location filename="mainwindow.cpp" line="914"/>
+        <source>stop_time</source>
+        <translation>정지 시간</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="666"/>
+        <location filename="mainwindow.cpp" line="915"/>
+        <source>run_time</source>
+        <translation>가동 시간</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="667"/>
+        <location filename="mainwindow.cpp" line="916"/>
+        <source>stop_data</source>
+        <translation>정지 사유</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="668"/>
+        <location filename="mainwindow.cpp" line="917"/>
+        <source>run_name</source>
+        <translation>진행이름</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="669"/>
+        <location filename="mainwindow.cpp" line="918"/>
+        <source>stop_name</source>
+        <translation>정지이름</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="670"/>
+        <location filename="mainwindow.cpp" line="686"/>
+        <location filename="mainwindow.cpp" line="919"/>
+        <source>stop_time_calc</source>
+        <translation>정지로스</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="687"/>
+        <source>operation_ratio</source>
+        <translation>가동률</translation>
     </message>
 </context>
 <context>
@@ -239,8 +367,91 @@
     </message>
     <message>
         <location filename="th_monitering.cpp" line="59"/>
+        <source>SCHDOWN2</source>
+        <translation>기종변경</translation>
+    </message>
+    <message>
+        <location filename="th_monitering.cpp" line="62"/>
+        <source>USCHDOWN4</source>
+        <translation>순간정지</translation>
+    </message>
+    <message>
+        <location filename="th_monitering.cpp" line="65"/>
+        <source>USCHDOWN1</source>
+        <translation>자재품절</translation>
+    </message>
+    <message>
+        <location filename="th_monitering.cpp" line="68"/>
+        <source>USCHDOWN2</source>
+        <translation>품질문제</translation>
+    </message>
+    <message>
+        <location filename="th_monitering.cpp" line="71"/>
+        <source>NONSCHED</source>
+        <translation>휴지</translation>
+    </message>
+    <message>
+        <location filename="th_monitering.cpp" line="74"/>
         <source>dontknow</source>
         <translation>알수 없음</translation>
+    </message>
+</context>
+<context>
+    <name>add_machine_dialog</name>
+    <message>
+        <location filename="add_machine_dialog.ui" line="14"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="add_machine_dialog.ui" line="59"/>
+        <source>설비이름</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="add_machine_dialog.ui" line="67"/>
+        <source>성막</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="add_machine_dialog.ui" line="72"/>
+        <source>노광</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="add_machine_dialog.ui" line="77"/>
+        <source>에칭</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="add_machine_dialog.ui" line="82"/>
+        <source>프로브</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="add_machine_dialog.ui" line="87"/>
+        <source>프로브1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="add_machine_dialog.ui" line="98"/>
+        <source>목록 번호</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="add_machine_dialog.ui" line="105"/>
+        <source>공정</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="add_machine_dialog.ui" line="112"/>
+        <source>설비코드</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="add_machine_dialog.ui" line="122"/>
+        <source>MES설비 정보 -&gt; 설비 코드</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -266,37 +477,43 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="login_form.cpp" line="156"/>
+        <location filename="login_form.cpp" line="151"/>
+        <source>don&apos;t have id</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="login_form.cpp" line="181"/>
+        <location filename="login_form.cpp" line="204"/>
         <source>RUN</source>
         <translation>정상가동</translation>
     </message>
     <message>
-        <location filename="login_form.cpp" line="158"/>
+        <location filename="login_form.cpp" line="183"/>
         <source>ENGR1</source>
         <translation>공정,설비 테스트</translation>
     </message>
     <message>
-        <location filename="login_form.cpp" line="160"/>
+        <location filename="login_form.cpp" line="185"/>
         <source>SCHDOWN1</source>
         <translation>예방정비</translation>
     </message>
     <message>
-        <location filename="login_form.cpp" line="162"/>
+        <location filename="login_form.cpp" line="187"/>
         <source>USCHDOWN3</source>
         <translation>설비고장</translation>
     </message>
     <message>
-        <location filename="login_form.cpp" line="164"/>
+        <location filename="login_form.cpp" line="189"/>
         <source>WAIT</source>
         <translation>대기</translation>
     </message>
     <message>
-        <location filename="login_form.cpp" line="179"/>
+        <location filename="login_form.cpp" line="242"/>
         <source>ok</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="login_form.cpp" line="184"/>
+        <location filename="login_form.cpp" line="248"/>
         <source>loginfail</source>
         <translation type="unfinished"></translation>
     </message>
@@ -316,6 +533,72 @@
     <message>
         <location filename="machine_list_item.ui" line="49"/>
         <source>설비상태</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>manager_login</name>
+    <message>
+        <location filename="manager_login.ui" line="14"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="manager_login.ui" line="20"/>
+        <source>암호</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>modify_machine_dialog</name>
+    <message>
+        <location filename="modify_machine_dialog.ui" line="14"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="modify_machine_dialog.ui" line="22"/>
+        <source>설비코드</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="modify_machine_dialog.ui" line="29"/>
+        <source>설비이름</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="modify_machine_dialog.ui" line="39"/>
+        <source>공정</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="modify_machine_dialog.ui" line="47"/>
+        <source>성막</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="modify_machine_dialog.ui" line="52"/>
+        <source>노광</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="modify_machine_dialog.ui" line="57"/>
+        <source>에칭</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="modify_machine_dialog.ui" line="62"/>
+        <source>프로브</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="modify_machine_dialog.ui" line="67"/>
+        <source>프로브1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="modify_machine_dialog.ui" line="78"/>
+        <source>목록번호</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
