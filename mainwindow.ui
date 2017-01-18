@@ -18,7 +18,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -35,7 +35,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1613</width>
+             <width>1608</width>
              <height>593</height>
             </rect>
            </property>
@@ -97,34 +97,6 @@
               <property name="alignment">
                <set>Qt::AlignCenter</set>
               </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QTableWidget" name="deposition_listview">
-              <attribute name="horizontalHeaderCascadingSectionResizes">
-               <bool>false</bool>
-              </attribute>
-              <attribute name="horizontalHeaderDefaultSectionSize">
-               <number>150</number>
-              </attribute>
-              <attribute name="horizontalHeaderStretchLastSection">
-               <bool>true</bool>
-              </attribute>
-              <column>
-               <property name="text">
-                <string>설비명</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>설비상태</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>설비코드</string>
-               </property>
-              </column>
              </widget>
             </item>
             <item row="0" column="0">
@@ -236,6 +208,34 @@
               </column>
              </widget>
             </item>
+            <item row="1" column="0">
+             <widget class="QTableWidget" name="deposition_listview">
+              <attribute name="horizontalHeaderCascadingSectionResizes">
+               <bool>false</bool>
+              </attribute>
+              <attribute name="horizontalHeaderDefaultSectionSize">
+               <number>150</number>
+              </attribute>
+              <attribute name="horizontalHeaderStretchLastSection">
+               <bool>true</bool>
+              </attribute>
+              <column>
+               <property name="text">
+                <string>설비명</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>설비상태</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>설비코드</string>
+               </property>
+              </column>
+             </widget>
+            </item>
            </layout>
           </widget>
          </widget>
@@ -250,8 +250,20 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="font">
+             <font>
+              <family>Aharoni</family>
+              <pointsize>18</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(85, 255, 127);</string>
+            </property>
             <property name="text">
-             <string>정상가동</string>
+             <string>정상
+가동</string>
             </property>
            </widget>
           </item>
@@ -262,6 +274,17 @@
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>Aharoni</family>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(128, 128, 255);</string>
             </property>
             <property name="text">
              <string>공정,설비
@@ -277,8 +300,20 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="font">
+             <font>
+              <family>Aharoni</family>
+              <pointsize>16</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 128, 255);</string>
+            </property>
             <property name="text">
-             <string>예방정비</string>
+             <string>예방
+정비</string>
             </property>
            </widget>
           </item>
@@ -290,8 +325,20 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="font">
+             <font>
+              <family>Aharoni</family>
+              <pointsize>14</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 31, 33);</string>
+            </property>
             <property name="text">
-             <string>설비고장</string>
+             <string>설비
+고장</string>
             </property>
            </widget>
           </item>
@@ -302,6 +349,17 @@
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>Aharoni</family>
+              <pointsize>18</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 255, 128);</string>
             </property>
             <property name="text">
              <string>대기</string>
@@ -509,15 +567,15 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_5">
         <item row="0" column="0">
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item>
-           <widget class="QDateEdit" name="research_start_date">
+         <layout class="QGridLayout" name="gridLayout_6">
+          <item row="0" column="2">
+           <widget class="QDateEdit" name="research_end_date">
             <property name="calendarPopup">
              <bool>true</bool>
             </property>
            </widget>
           </item>
-          <item>
+          <item row="0" column="1">
            <widget class="QLabel" name="label_8">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
@@ -533,27 +591,49 @@
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QDateEdit" name="research_end_date">
+          <item row="0" column="0">
+           <widget class="QDateEdit" name="research_start_date">
             <property name="calendarPopup">
              <bool>true</bool>
             </property>
            </widget>
           </item>
-          <item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="LA_start_time">
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
            <widget class="QPushButton" name="calc_btn">
             <property name="text">
              <string>가동률 계산</string>
             </property>
            </widget>
           </item>
+          <item row="1" column="2">
+           <widget class="QLabel" name="LA_EndTime">
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="label_11">
+            <property name="text">
+             <string>~</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3">
+           <widget class="QPushButton" name="resttime_setup">
+            <property name="text">
+             <string>일별휴지시간 설정 </string>
+            </property>
+           </widget>
+          </item>
          </layout>
-        </item>
-        <item row="2" column="0">
-         <widget class="QTableView" name="detail_table"/>
-        </item>
-        <item row="2" column="1">
-         <widget class="QTableView" name="total_table"/>
         </item>
         <item row="1" column="0">
          <widget class="QPushButton" name="show_detail_total">
@@ -561,6 +641,15 @@
            <string>전체보기</string>
           </property>
          </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="b_table_widget" name="detail_table"/>
+        </item>
+        <item row="3" column="0">
+         <widget class="QTableView" name="rest_time_view"/>
+        </item>
+        <item row="2" column="1" rowspan="2">
+         <widget class="b_table_widget" name="total_table"/>
         </item>
        </layout>
       </widget>
@@ -589,6 +678,13 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>b_table_widget</class>
+   <extends>QTableView</extends>
+   <header>b_table_widget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

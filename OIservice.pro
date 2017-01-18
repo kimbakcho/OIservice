@@ -30,7 +30,9 @@ SOURCES += main.cpp\
     manager_login.cpp \
     add_machine_dialog.cpp \
     modify_machine_dialog.cpp \
-    oi_data.cpp
+    oi_data.cpp \
+    b_table_widget.cpp \
+    rest_time_widget.cpp
 
 HEADERS  += mainwindow.h \
     oistystemsoap/oisystem.nsmap \
@@ -47,7 +49,9 @@ HEADERS  += mainwindow.h \
     manager_login.h \
     add_machine_dialog.h \
     modify_machine_dialog.h \
-    oi_data.h
+    oi_data.h \
+    b_table_widget.h \
+    rest_time_widget.h
 
 FORMS    += mainwindow.ui \
     operatingratio/operating_ratio_action.ui \
@@ -55,7 +59,8 @@ FORMS    += mainwindow.ui \
     machine_list_item.ui \
     manager_login.ui \
     add_machine_dialog.ui \
-    modify_machine_dialog.ui
+    modify_machine_dialog.ui \
+    rest_time_widget.ui
 
 RESOURCES += \
     resource.qrc

@@ -43,15 +43,15 @@
     </message>
     <message>
         <location filename="mainwindow.ui" line="63"/>
-        <location filename="mainwindow.ui" line="125"/>
-        <location filename="mainwindow.ui" line="167"/>
-        <location filename="mainwindow.ui" line="192"/>
+        <location filename="mainwindow.ui" line="139"/>
+        <location filename="mainwindow.ui" line="164"/>
+        <location filename="mainwindow.ui" line="206"/>
         <location filename="mainwindow.ui" line="234"/>
         <source>설비코드</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="207"/>
+        <location filename="mainwindow.ui" line="179"/>
         <location filename="mainwindow.ui" line="427"/>
         <source>프로브</source>
         <translation type="unfinished"></translation>
@@ -69,7 +69,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="140"/>
+        <location filename="mainwindow.ui" line="112"/>
         <location filename="mainwindow.ui" line="412"/>
         <source>성막</source>
         <translation type="unfinished"></translation>
@@ -174,18 +174,18 @@
     </message>
     <message>
         <location filename="mainwindow.ui" line="53"/>
-        <location filename="mainwindow.ui" line="115"/>
-        <location filename="mainwindow.ui" line="157"/>
-        <location filename="mainwindow.ui" line="182"/>
+        <location filename="mainwindow.ui" line="129"/>
+        <location filename="mainwindow.ui" line="154"/>
+        <location filename="mainwindow.ui" line="196"/>
         <location filename="mainwindow.ui" line="224"/>
         <source>설비명</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="58"/>
-        <location filename="mainwindow.ui" line="120"/>
-        <location filename="mainwindow.ui" line="162"/>
-        <location filename="mainwindow.ui" line="187"/>
+        <location filename="mainwindow.ui" line="134"/>
+        <location filename="mainwindow.ui" line="159"/>
+        <location filename="mainwindow.ui" line="201"/>
         <location filename="mainwindow.ui" line="229"/>
         <source>설비상태</source>
         <translation type="unfinished"></translation>
@@ -242,8 +242,8 @@
     <message>
         <location filename="mainwindow.cpp" line="146"/>
         <location filename="mainwindow.cpp" line="664"/>
-        <location filename="mainwindow.cpp" line="685"/>
-        <location filename="mainwindow.cpp" line="913"/>
+        <location filename="mainwindow.cpp" line="688"/>
+        <location filename="mainwindow.cpp" line="921"/>
         <source>machine_name</source>
         <translation>설비이름</translation>
     </message>
@@ -262,80 +262,85 @@
     </message>
     <message>
         <location filename="mainwindow.cpp" line="569"/>
-        <location filename="mainwindow.cpp" line="688"/>
-        <location filename="mainwindow.cpp" line="818"/>
+        <location filename="mainwindow.cpp" line="691"/>
+        <location filename="mainwindow.cpp" line="822"/>
         <source>PTrate</source>
         <translation>공정,설비 테스트</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="589"/>
-        <location filename="mainwindow.cpp" line="689"/>
-        <location filename="mainwindow.cpp" line="838"/>
+        <location filename="mainwindow.cpp" line="692"/>
+        <location filename="mainwindow.cpp" line="844"/>
         <source>PMrate</source>
         <translation>예방정비</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="609"/>
-        <location filename="mainwindow.cpp" line="690"/>
-        <location filename="mainwindow.cpp" line="858"/>
+        <location filename="mainwindow.cpp" line="693"/>
+        <location filename="mainwindow.cpp" line="864"/>
         <source>MTrate</source>
         <translation>설비고장</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="629"/>
-        <location filename="mainwindow.cpp" line="691"/>
-        <location filename="mainwindow.cpp" line="878"/>
+        <location filename="mainwindow.cpp" line="694"/>
+        <location filename="mainwindow.cpp" line="884"/>
         <source>Waitrate</source>
         <translation>대기</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="663"/>
-        <location filename="mainwindow.cpp" line="684"/>
-        <location filename="mainwindow.cpp" line="912"/>
+        <location filename="mainwindow.cpp" line="687"/>
+        <location filename="mainwindow.cpp" line="920"/>
         <source>process</source>
         <translation>공정</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="665"/>
-        <location filename="mainwindow.cpp" line="914"/>
+        <location filename="mainwindow.cpp" line="922"/>
         <source>stop_time</source>
         <translation>정지 시간</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="666"/>
-        <location filename="mainwindow.cpp" line="915"/>
+        <location filename="mainwindow.cpp" line="923"/>
         <source>run_time</source>
         <translation>가동 시간</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="667"/>
-        <location filename="mainwindow.cpp" line="916"/>
+        <location filename="mainwindow.cpp" line="924"/>
         <source>stop_data</source>
         <translation>정지 사유</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="668"/>
-        <location filename="mainwindow.cpp" line="917"/>
+        <location filename="mainwindow.cpp" line="925"/>
         <source>run_name</source>
         <translation>진행이름</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="669"/>
-        <location filename="mainwindow.cpp" line="918"/>
+        <location filename="mainwindow.cpp" line="926"/>
         <source>stop_name</source>
         <translation>정지이름</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="670"/>
-        <location filename="mainwindow.cpp" line="686"/>
-        <location filename="mainwindow.cpp" line="919"/>
+        <location filename="mainwindow.cpp" line="689"/>
+        <location filename="mainwindow.cpp" line="927"/>
         <source>stop_time_calc</source>
         <translation>정지로스</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="687"/>
+        <location filename="mainwindow.cpp" line="690"/>
         <source>operation_ratio</source>
         <translation>가동률</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="695"/>
+        <source>stop_loss(%)</source>
+        <translation>정지로스(%)</translation>
     </message>
 </context>
 <context>

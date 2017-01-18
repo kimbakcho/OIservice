@@ -8,7 +8,7 @@
 #include <QDebug>
 #include <machine_statue_data.h>
 #include <QDateTime>
-
+#include <rest_time_widget.h>
 #include <th_monitering.h>
 #include <login_form.h>
 #include <QSqlQueryModel>
@@ -47,6 +47,8 @@ public:
     QVector<OI_data> OIdata_list;
     QSqlQueryModel detail_table_model;
     QSqlQueryModel total_table_model;
+
+    QSqlQueryModel rest_table_model;
 
     ~MainWindow();
 
@@ -105,6 +107,14 @@ private slots:
     void on_show_detail_total_clicked();
 
     void on_total_table_clicked(const QModelIndex &index);
+
+    void on_research_start_date_dateTimeChanged(const QDateTime &dateTime);
+
+    void on_research_end_date_dateTimeChanged(const QDateTime &dateTime);
+
+    void on_detail_table_clicked(const QModelIndex &index);
+
+    void on_resttime_setup_clicked();
 
 private:
     Ui::MainWindow *ui;
