@@ -8,7 +8,8 @@ login_form::login_form(QWidget *parent) :
 {
     ui->setupUi(this);
     loginflag =false;
-    connect(&menager,SIGNAL(finished(QNetworkReply*)),this,SLOT(read_finish(QNetworkReply*)));
+
+    crypt.setKey((Q_UINT64_C(0x20170123)));
 
 }
 login_form::login_form(QString event_name, QString machine_code, QWidget *parent) :
@@ -18,7 +19,6 @@ login_form::login_form(QString event_name, QString machine_code, QWidget *parent
     ui->setupUi(this);
     loginflag =false;
     this->event_name= event_name;
-    connect(&menager,SIGNAL(finished(QNetworkReply*)),this,SLOT(read_finish(QNetworkReply*)));
     data.equipmentId = &equip;
     data.siteId = &siteid;
     data.eventId = &eventid;
@@ -49,6 +49,7 @@ login_form::login_form(QString event_name, QString machine_code, QWidget *parent
     }else {
         my_mesdb = QSqlDatabase::database(mydb_name);
     }
+    crypt.setKey((Q_UINT64_C(0x20170123)));
 }
 login_form::login_form(QString event_name, QString machine_code,QString machine_name,QString process, QWidget *parent) :
     QWidget(parent),
@@ -57,7 +58,7 @@ login_form::login_form(QString event_name, QString machine_code,QString machine_
     ui->setupUi(this);
     loginflag =false;
     this->event_name= event_name;
-    connect(&menager,SIGNAL(finished(QNetworkReply*)),this,SLOT(read_finish(QNetworkReply*)));
+
     data.equipmentId = &equip;
     data.siteId = &siteid;
     data.eventId = &eventid;
@@ -91,6 +92,7 @@ login_form::login_form(QString event_name, QString machine_code,QString machine_
     }else {
         my_mesdb = QSqlDatabase::database(mydb_name);
     }
+    crypt.setKey((Q_UINT64_C(0x20170123)));
 }
 
 QString login_form::getUser_name() const
@@ -138,137 +140,99 @@ login_form::~login_form()
     delete ui;
 }
 
-void login_form::read_finish(QNetworkReply *reply)
-{
-    QByteArray srcdata = reply->readAll();
-    QString strdata(srcdata);
-    QString fromurl = reply->url().toString();
-    if(fromurl == "http://gw.wisol.co.kr/ekp/login.do"){
-
-        QStringList temp_list = strdata.split(",");
-        if(temp_list.count()<2){
-            QMessageBox msg;
-            msg.setText(tr("don't have id"));
-            msg.addButton(QMessageBox::Ok);
-            msg.exec();
-
-            reply->deleteLater();
-
-            return ;
-
-        }
-        QString temp_name = temp_list.at(1);
-        temp_list = temp_name.split(":");
-        temp_name = temp_list.at(1);
-        temp_name = temp_name.replace("\"","");
-
-        user_name = temp_name;
-        QString requsturl = QString("http://gw.wisol.co.kr/ekp/login.do?"
-                                    "cmd=epLogin&pop3=N&saveid=N&securchk=N&"
-                                    "id=%1&password=%2&lang=ko&mode=plain&"
-                                    "cmpId=C100120723&slct_dept_id=&"
-                                    "serverName=gw.wisol.co.kr/ekp&securityKey=").arg(ui->ID_LE->text()).arg(ui->PW_LE->text());
-        QUrl longin_url(requsturl);
-        QNetworkRequest requst(longin_url);
-        menager.get(requst);
-        reply->deleteLater();
-    }else if(fromurl.indexOf("cmd=epLogin&pop3=N&saveid=N&securchk=N")>=0){
-        if(strdata.indexOf("LOGIN_SUCCESS")>=0){
-            qDebug()<<"LOGIN_SUCCESS";
-            _ns1__OIWebEquipmentStatusResponse response;
-            soap_event.OIWebEquipmentStatus(&data,response);
-            if(event_name=="RUN"){
-                event_name = event_name.replace("RUN",tr("RUN"));
-            }else if(event_name=="ENGR1"){
-                event_name = event_name.replace("ENGR1",tr("ENGR1"));
-            }else if(event_name=="SCHDOWN1"){
-                event_name = event_name.replace("SCHDOWN1",tr("SCHDOWN1"));
-            }else if(event_name=="USCHDOWN3"){
-                event_name = event_name.replace("USCHDOWN3",tr("USCHDOWN3"));
-            }else if(event_name=="WAIT"){
-                event_name = event_name.replace("WAIT",tr("WAIT"));
-            }else {
-
-            }
-            QDateTime current_datetime = QDateTime::currentDateTime();
-            QString currenttime_str =current_datetime.toString("yyyy-MM-dd hh:mm:ss");
-            QSqlQuery query(my_mesdb);
-            QString query_txt = QString("INSERT INTO `OI_system_history` "
-                                        "(`event_datetime`, `name`, "
-                                        "`machine_name`, `event_type`,`process`) "
-                                        "VALUES ("
-                                        "'%1', '%2', '%3', '%4' , '%5');")
-                                        .arg(currenttime_str)
-                                        .arg(user_name).arg(machine_name).arg(event_name).arg(process);
-            query.exec(query_txt);
-            if(event_name == tr("RUN")){
-                query_txt = QString("select * from OI_system_time where run_time is NULL "
-                                    "AND machine_code = '%1' "
-                                    "AND machine_name = '%2' order by stop_time desc LIMIT 1").arg(machine_code).arg(machine_name);
-                query.exec(query_txt);
-                if(query.next()){
-                    QDateTime stop_time = query.value("stop_time").toDateTime();
-                    qint64 secs = stop_time.secsTo(current_datetime);
-                    QString time_str = from_sec_to_timestr(secs);
-                    query_txt = QString("Update `OI_system_time` SET "
-                                        "run_time = '%1',run_name='%2',stop_time_calc='%3' "
-                                        "Where stop_time = '%5' AND machine_code ='%6'")
-                                        .arg(currenttime_str).arg(user_name).arg(time_str)
-                                        .arg(query.value("stop_time").toDateTime().toString("yyyy-MM-dd hh:mm:ss"))
-                                        .arg(query.value("machine_code").toString());
-                    query.exec(query_txt);
-                    qDebug()<<query.lastQuery();
-                }else {
-
-                }
-            }else {
-                query_txt = QString("select * from OI_system_time where run_time is NULL "
-                                    "AND machine_code = '%1' "
-                                    "AND machine_name = '%2' order by run_time desc LIMIT 1")
-                        .arg(machine_code).arg(machine_name);
-                query.exec(query_txt);
-                if(!query.next()){
-                    query_txt = QString("INSERT INTO `OI_system_time` "
-                                        "(`process`,`machine_name`, `machine_code`, `stop_time`, `stop_name` , `stop_data`) "
-                                        "VALUES ('%1', '%2', '%3', '%4','%5','%6');")
-                                        .arg(process).arg(machine_name).arg(machine_code).arg(currenttime_str).arg(user_name).arg(event_name);
-                    query.exec(query_txt);
-                }else {
-
-                }
-            }
-
-            QMessageBox msg;
-            msg.setText(tr("ok"));
-            msg.addButton(QMessageBox::Ok);
-            msg.exec();
-            m_window->on_search_btn_clicked_connection();
-        }else {
-            QMessageBox msg;
-            msg.setText(tr("loginfail"));
-            msg.addButton(QMessageBox::Ok);
-            msg.exec();
-            ui->login_btn->setEnabled(true);
-        }
-        reply->deleteLater();
-        close();
-    }else {
-        reply->deleteLater();
-        close();
-    }
-}
-
 void login_form::on_login_btn_clicked()
 {
-    QUrl checkurl("http://gw.wisol.co.kr/ekp/login.do");
-    QNetworkRequest requst(checkurl);
-    requst.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
-    QByteArray postData;
-    postData.append("cmd=additionalCheck&");
-    postData.append(QString("id=%1&").arg(ui->ID_LE->text()));
-    postData.append("password=&");
-    postData.append("mode=plain");
-    menager.post(requst,postData);
+      QSqlQuery query(my_mesdb);
+      query.exec(QString("select * from OI_system_login_info where number = '%1'").arg(ui->ID_LE->text()));
+      if(query.next()){
+          if(crypt.decryptToString(query.value("password").toString()) != ui->PW_LE->text()){
+              QMessageBox msg;
+              msg.setText(tr("password wrong"));
+              msg.addButton(QMessageBox::Ok);
+              msg.exec();
+              ui->login_btn->setEnabled(true);
+              return ;
+          }
+          user_name = query.value("name").toString();
+          _ns1__OIWebEquipmentStatusResponse response;
+          soap_event.OIWebEquipmentStatus(&data,response);
+          if(event_name=="RUN"){
+              event_name = event_name.replace("RUN",tr("RUN"));
+          }else if(event_name=="ENGR1"){
+              event_name = event_name.replace("ENGR1",tr("ENGR1"));
+          }else if(event_name=="SCHDOWN1"){
+              event_name = event_name.replace("SCHDOWN1",tr("SCHDOWN1"));
+          }else if(event_name=="USCHDOWN3"){
+              event_name = event_name.replace("USCHDOWN3",tr("USCHDOWN3"));
+          }else if(event_name=="WAIT"){
+              event_name = event_name.replace("WAIT",tr("WAIT"));
+          }else {
+
+          }
+          QDateTime current_datetime = QDateTime::currentDateTime();
+          QString currenttime_str =current_datetime.toString("yyyy-MM-dd hh:mm:ss");
+          QSqlQuery query1(my_mesdb);
+          QString query_txt = QString("INSERT INTO `OI_system_history` "
+                                      "(`event_datetime`, `name`, "
+                                      "`machine_name`, `event_type`,`process`) "
+                                      "VALUES ("
+                                      "'%1', '%2', '%3', '%4' , '%5');")
+                                      .arg(currenttime_str)
+                                      .arg(user_name).arg(machine_name).arg(event_name).arg(process);
+          query1.exec(query_txt);
+          if(event_name == tr("RUN")){
+              query_txt = QString("select * from OI_system_time where run_time is NULL "
+                                  "AND machine_code = '%1' "
+                                  "AND machine_name = '%2' order by stop_time desc LIMIT 1").arg(machine_code).arg(machine_name);
+              query1.exec(query_txt);
+              if(query1.next()){
+                  QDateTime stop_time = query1.value("stop_time").toDateTime();
+                  qint64 secs = stop_time.secsTo(current_datetime);
+                  QString time_str = from_sec_to_timestr(secs);
+                  query_txt = QString("Update `OI_system_time` SET "
+                                      "run_time = '%1',run_name='%2',stop_time_calc='%3' "
+                                      "Where stop_time = '%5' AND machine_code ='%6'")
+                                      .arg(currenttime_str).arg(user_name).arg(time_str)
+                                      .arg(query1.value("stop_time").toDateTime().toString("yyyy-MM-dd hh:mm:ss"))
+                                      .arg(query1.value("machine_code").toString());
+                  query1.exec(query_txt);
+                  qDebug()<<query1.lastQuery();
+              }else {
+
+              }
+          }else {
+              query_txt = QString("select * from OI_system_time where run_time is NULL "
+                                  "AND machine_code = '%1' "
+                                  "AND machine_name = '%2' order by run_time desc LIMIT 1")
+                      .arg(machine_code).arg(machine_name);
+              query1.exec(query_txt);
+              if(!query1.next()){
+                  query_txt = QString("INSERT INTO `OI_system_time` "
+                                      "(`process`,`machine_name`, `machine_code`, `stop_time`, `stop_name` , `stop_data`) "
+                                      "VALUES ('%1', '%2', '%3', '%4','%5','%6');")
+                                      .arg(process).arg(machine_name).arg(machine_code).arg(currenttime_str).arg(user_name).arg(event_name);
+                  query1.exec(query_txt);
+              }else {
+
+              }
+          }
+
+          QMessageBox msg;
+          msg.setText(tr("ok"));
+          msg.addButton(QMessageBox::Ok);
+          msg.exec();
+          close();
+          m_window->on_search_btn_clicked_connection();
+
+      }else {
+          QMessageBox msg;
+          msg.setText(tr("don't have number"));
+          msg.setDefaultButton(QMessageBox::Ok);
+          msg.exec();
+          ui->login_btn->setEnabled(true);
+          close();
+      }
+
 }
 
 void login_form::keyPressEvent(QKeyEvent *event)
@@ -282,4 +246,10 @@ void login_form::keyPressEvent(QKeyEvent *event)
 void login_form::closeEvent(QCloseEvent *event)
 {
     this->deleteLater();
+}
+
+void login_form::on_join_btn_clicked()
+{
+    join_popup *joinpopup = new join_popup();
+    joinpopup->exec();
 }

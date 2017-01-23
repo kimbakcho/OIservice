@@ -5,6 +5,11 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <simplecrypt/simplecrypt.h>
+#include <QDateTime>
+#include <QDebug>
+#include <QMessageBox>
+
 namespace Ui {
 class join_popup;
 }
@@ -16,6 +21,7 @@ class join_popup : public QDialog
 public:
     explicit join_popup(QWidget *parent = 0);
     QSqlDatabase my_mesdb;
+    SimpleCrypt crypt;
     ~join_popup();
 
 private slots:

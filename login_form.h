@@ -13,8 +13,8 @@
 #include <oistystemsoap/oisystemOIWebServiceSoapProxy.h>
 #include <QMessageBox>
 #include <QElapsedTimer>
-
-
+#include <join_popup.h>
+#include <simplecrypt/simplecrypt.h>
 #define DBID "EIS"
 #define DBPW "wisolfab!"
 
@@ -47,6 +47,7 @@ public:
     std::string resultmessage;
     QSqlDatabase my_mesdb;
     QString user_name;
+    SimpleCrypt crypt;
     ~login_form();
 
     QString getLoginname() const;
@@ -61,9 +62,10 @@ public:
     QString from_sec_to_timestr(int secs);
 
 private slots:
-    void read_finish(QNetworkReply *reply);
 
     void on_login_btn_clicked();
+
+    void on_join_btn_clicked();
 
 private:
     void keyPressEvent(QKeyEvent *event);

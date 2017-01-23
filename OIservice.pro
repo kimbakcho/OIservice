@@ -39,7 +39,8 @@ SOURCES += main.cpp\
     b_table_view.cpp \
     b_table_widget2.cpp \
     simplecrypt/simplecrypt.cpp \
-    join_popup.cpp
+    join_popup.cpp \
+    oi_select_ratio_chartview.cpp
 
 HEADERS  += mainwindow.h \
     oistystemsoap/oisystem.nsmap \
@@ -65,7 +66,8 @@ HEADERS  += mainwindow.h \
     b_table_view.h \
     b_table_widget2.h \
     simplecrypt/simplecrypt.h \
-    join_popup.h
+    join_popup.h \
+    oi_select_ratio_chartview.h
 
 FORMS    += mainwindow.ui \
     operatingratio/operating_ratio_action.ui \

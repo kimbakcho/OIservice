@@ -568,6 +568,18 @@ void MainWindow::on_calc_btn_clicked()
             query3.exec(query_txt5);
             if(query3.next()){
                 temp_calc = temp_calc - query3.value("remove_sec").toInt();
+                if(temp_calc<0){
+                    query_txt5 = QString("select * from OI_system_remove_event_time "
+                                                 "where remove_time between '%1' AND '%2' order by remove_time desc")
+                                                 .arg(stoptime.toString("yyyy-MM-dd hh:mm:ss"))
+                                                 .arg(runtime.toString("yyyy-MM-dd hh:mm:ss"));
+                    QSqlQuery query5(my_mesdb);
+                    query5.exec(query_txt5);
+                    if(query5.next()){
+                        runtime = query5.value("remove_time").toDateTime();
+                        temp_calc = stoptime.secsTo(runtime);
+                    }
+                }
             }
             lost_sec = lost_sec + temp_calc;
 
@@ -626,6 +638,17 @@ void MainWindow::on_calc_btn_clicked()
             query3.exec(query_txt5);
             if(query3.next()){
                 PTtotal_sec = PTtotal_sec - query3.value("remove_sec").toInt();
+                if(PTtotal_sec<0){
+                    query_txt5 = QString("select * from OI_system_remove_event_time "
+                                                 "where remove_time between '%1' AND '%2' order by remove_time desc")
+                                                 .arg(light_query2.value("stop_time").toDateTime().toString("yyyy-MM-dd hh:mm:ss"))
+                                                 .arg(light_query2.value("run_time").toDateTime().toString("yyyy-MM-dd hh:mm:ss"));
+                    QSqlQuery query5(my_mesdb);
+                    query5.exec(query_txt5);
+                    if(query5.next()){
+                        PTtotal_sec = light_query2.value("stop_time").toDateTime().secsTo(query5.value("remove_time").toDateTime());
+                    }
+                }
             }
         }
 
@@ -657,6 +680,17 @@ void MainWindow::on_calc_btn_clicked()
             query3.exec(query_txt5);
             if(query3.next()){
                 PMtotal_sec = PMtotal_sec - query3.value("remove_sec").toInt();
+                if(PMtotal_sec<0){
+                    query_txt5 = QString("select * from OI_system_remove_event_time "
+                                                 "where remove_time between '%1' AND '%2' order by remove_time desc")
+                                                 .arg(light_query2.value("stop_time").toDateTime().toString("yyyy-MM-dd hh:mm:ss"))
+                                                 .arg(light_query2.value("run_time").toDateTime().toString("yyyy-MM-dd hh:mm:ss"));
+                    QSqlQuery query5(my_mesdb);
+                    query5.exec(query_txt5);
+                    if(query5.next()){
+                        PMtotal_sec = light_query2.value("stop_time").toDateTime().secsTo(query5.value("remove_time").toDateTime());
+                    }
+                }
             }
         }
 
@@ -688,6 +722,17 @@ void MainWindow::on_calc_btn_clicked()
             query3.exec(query_txt5);
             if(query3.next()){
                 MTtotal_sec = MTtotal_sec - query3.value("remove_sec").toInt();
+                if(MTtotal_sec<0){
+                    query_txt5 = QString("select * from OI_system_remove_event_time "
+                                                 "where remove_time between '%1' AND '%2' order by remove_time desc")
+                                                 .arg(light_query2.value("stop_time").toDateTime().toString("yyyy-MM-dd hh:mm:ss"))
+                                                 .arg(light_query2.value("run_time").toDateTime().toString("yyyy-MM-dd hh:mm:ss"));
+                    QSqlQuery query5(my_mesdb);
+                    query5.exec(query_txt5);
+                    if(query5.next()){
+                        MTtotal_sec = light_query2.value("stop_time").toDateTime().secsTo(query5.value("remove_time").toDateTime());
+                    }
+                }
             }
         }
 
@@ -719,6 +764,17 @@ void MainWindow::on_calc_btn_clicked()
             query3.exec(query_txt5);
             if(query3.next()){
                 Waittotal_sec = Waittotal_sec - query3.value("remove_sec").toInt();
+                if(Waittotal_sec<0){
+                    query_txt5 = QString("select * from OI_system_remove_event_time "
+                                                 "where remove_time between '%1' AND '%2' order by remove_time desc")
+                                                 .arg(light_query2.value("stop_time").toDateTime().toString("yyyy-MM-dd hh:mm:ss"))
+                                                 .arg(light_query2.value("run_time").toDateTime().toString("yyyy-MM-dd hh:mm:ss"));
+                    QSqlQuery query5(my_mesdb);
+                    query5.exec(query_txt5);
+                    if(query5.next()){
+                        Waittotal_sec = light_query2.value("stop_time").toDateTime().secsTo(query5.value("remove_time").toDateTime());
+                    }
+                }
             }
         }
 
@@ -750,6 +806,18 @@ void MainWindow::on_calc_btn_clicked()
             query3.exec(query_txt5);
             if(query3.next()){
                 USCHDOWN4_total_sec = USCHDOWN4_total_sec - query3.value("remove_sec").toInt();
+                if(USCHDOWN4_total_sec<0){
+                    query_txt5 = QString("select * from OI_system_remove_event_time "
+                                                 "where remove_time between '%1' AND '%2' order by remove_time desc")
+                                                 .arg(light_query2.value("stop_time").toDateTime().toString("yyyy-MM-dd hh:mm:ss"))
+                                                 .arg(light_query2.value("run_time").toDateTime().toString("yyyy-MM-dd hh:mm:ss"));
+                    QSqlQuery query5(my_mesdb);
+                    query5.exec(query_txt5);
+                    if(query5.next()){
+                        USCHDOWN4_total_sec = light_query2.value("stop_time").toDateTime().secsTo(query5.value("remove_time").toDateTime());
+                    }
+                }
+
             }
         }
         double USCHDOWN4rate;
@@ -1038,43 +1106,88 @@ void MainWindow::on_calc_btn_clicked()
         ui->total_table->setCellWidget(row_count,13,new QLabel(query_total.value("stop_loss_per").toString()));
         ((QLabel *)ui->total_table->cellWidget(row_count,13))->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
     }
-//    QString query_txt4;
 
-//    if(ui->CB_select_process->currentText()==tr("ALLPRocess")){
-//        query_txt4 = QString("select process,AVG(ROUND(rate,2)) AS rate,AVG(ROUND(PTrate,2)) AS PTrate,AVG(ROUND(PMrate,2)) AS PMrate,ROUND(MTrate,2) AS MTrate,ROUND(Waitrate,2) AS Waitrate,"
-//                                         "ROUND(USCHDOWN4,2) AS USCHDOWN4 ,ROUND(USCHDOWN1,2) AS USCHDOWN1,ROUND(SCHDOWN2,2) AS SCHDOWN2,ROUND(USCHDOWN2,2) AS USCHDOWN2,ROUND(NONSCHED,2) AS NONSCHED ,"
-//                                         "ROUND((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED),2)AS stop_loss_per  "
-//                                         "from OI_system_time_2 "
-//                                         "order by rate asc");
-//    }else if(ui->CB_select_process->currentText()==tr("deposition")){
-//        query_txt4 = QString("select process,machine_name,machine_code,"
-//                                         "stop_time_calc,ROUND(rate,2) AS rate,ROUND(PTrate,2) AS PTrate,ROUND(PMrate,2) AS PMrate,ROUND(MTrate,2) AS MTrate,ROUND(Waitrate,2) AS Waitrate,"
-//                                         "ROUND(USCHDOWN4,2) AS USCHDOWN4 ,ROUND(USCHDOWN1,2) AS USCHDOWN1,ROUND(SCHDOWN2,2) AS SCHDOWN2,ROUND(USCHDOWN2,2) AS USCHDOWN2,ROUND(NONSCHED,2) AS NONSCHED ,"
-//                                         "ROUND((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED),2)AS stop_loss_per  "
-//                                         "from OI_system_time_2 "
-//                                         "where process = '%1' order by rate asc").arg(tr("deposition"));
-//    }else if(ui->CB_select_process->currentText()==tr("light")){
-//        query_txt4 = QString("select process,machine_name,machine_code,"
-//                                         "stop_time_calc,ROUND(rate,2) AS rate,ROUND(PTrate,2) AS PTrate,ROUND(PMrate,2) AS PMrate,ROUND(MTrate,2) AS MTrate,ROUND(Waitrate,2) AS Waitrate,"
-//                                         "ROUND(USCHDOWN4,2) AS USCHDOWN4 ,ROUND(USCHDOWN1,2) AS USCHDOWN1,ROUND(SCHDOWN2,2) AS SCHDOWN2,ROUND(USCHDOWN2,2) AS USCHDOWN2,ROUND(NONSCHED,2) AS NONSCHED ,"
-//                                         "ROUND((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED),2)AS stop_loss_per  "
-//                                         "from OI_system_time_2 "
-//                                         "where process = '%1' order by rate asc").arg(tr("light"));
-//    }else if(ui->CB_select_process->currentText()==tr("eatching")){
-//        query_txt4 = QString("select process,machine_name,machine_code,"
-//                                         "stop_time_calc,ROUND(rate,2) AS rate,ROUND(PTrate,2) AS PTrate,ROUND(PMrate,2) AS PMrate,ROUND(MTrate,2) AS MTrate,ROUND(Waitrate,2) AS Waitrate,"
-//                                         "ROUND(USCHDOWN4,2) AS USCHDOWN4 ,ROUND(USCHDOWN1,2) AS USCHDOWN1,ROUND(SCHDOWN2,2) AS SCHDOWN2,ROUND(USCHDOWN2,2) AS USCHDOWN2,ROUND(NONSCHED,2) AS NONSCHED ,"
-//                                         "ROUND((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED),2)AS stop_loss_per  "
-//                                         "from OI_system_time_2 "
-//                                         "where process = '%1' order by rate asc").arg(tr("eatching"));
-//    }else if(ui->CB_select_process->currentText()==tr("ALL probe")){
-//        query_txt4 = QString("select process,machine_name,machine_code,"
-//                                         "stop_time_calc,ROUND(rate,2) AS rate,ROUND(PTrate,2) AS PTrate,ROUND(PMrate,2) AS PMrate,ROUND(MTrate,2) AS MTrate,ROUND(Waitrate,2) AS Waitrate,"
-//                                         "ROUND(USCHDOWN4,2) AS USCHDOWN4 ,ROUND(USCHDOWN1,2) AS USCHDOWN1,ROUND(SCHDOWN2,2) AS SCHDOWN2,ROUND(USCHDOWN2,2) AS USCHDOWN2,ROUND(NONSCHED,2) AS NONSCHED ,"
-//                                         "ROUND((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED),2)AS stop_loss_per  "
-//                                         "from OI_system_time_2 "
-//                                         "where process LIKE '%1%' order by rate asc").arg(tr("ALL probe"));
-//    }
+
+    if(ui->CB_select_process->currentText()==tr("ALLPRocess")){
+        query_txt4 = QString("select process,ROUND(AVG(rate),2) AS rate,ROUND(AVG(PTrate),2) AS PTrate,ROUND(AVG(PMrate),2) AS PMrate,ROUND(AVG(MTrate),2) AS MTrate,ROUND(AVG(Waitrate),2) AS Waitrate,"
+                                         "ROUND(AVG(USCHDOWN4),2) AS USCHDOWN4 ,ROUND(AVG(USCHDOWN1),2) AS USCHDOWN1,ROUND(AVG(SCHDOWN2),2) AS SCHDOWN2,ROUND(AVG(USCHDOWN2),2) AS USCHDOWN2,ROUND(AVG(NONSCHED),2) AS NONSCHED ,"
+                                         "ROUND(AVG((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED)),2)AS stop_loss_per  "
+                                         "from OI_system_time_2 "
+                                         "order by rate asc");
+    }else if(ui->CB_select_process->currentText()==tr("deposition")){
+        query_txt4 = QString("select process,ROUND(AVG(rate),2) AS rate,ROUND(AVG(PTrate),2) AS PTrate,ROUND(AVG(PMrate),2) AS PMrate,ROUND(AVG(MTrate),2) AS MTrate,ROUND(AVG(Waitrate),2) AS Waitrate,"
+                                         "ROUND(AVG(USCHDOWN4),2) AS USCHDOWN4 ,ROUND(AVG(USCHDOWN1),2) AS USCHDOWN1,ROUND(AVG(SCHDOWN2),2) AS SCHDOWN2,ROUND(AVG(USCHDOWN2),2) AS USCHDOWN2,ROUND(AVG(NONSCHED),2) AS NONSCHED ,"
+                                         "ROUND(AVG((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED)),2)AS stop_loss_per  "
+                                         "from OI_system_time_2 "
+                                         "where process = '%1' order by rate asc").arg(tr("deposition"));
+    }else if(ui->CB_select_process->currentText()==tr("light")){
+        query_txt4 = QString("select process,ROUND(AVG(rate),2) AS rate,ROUND(AVG(PTrate),2) AS PTrate,ROUND(AVG(PMrate),2) AS PMrate,ROUND(AVG(MTrate),2) AS MTrate,ROUND(AVG(Waitrate),2) AS Waitrate,"
+                                         "ROUND(AVG(USCHDOWN4),2) AS USCHDOWN4 ,ROUND(AVG(USCHDOWN1),2) AS USCHDOWN1,ROUND(AVG(SCHDOWN2),2) AS SCHDOWN2,ROUND(AVG(USCHDOWN2),2) AS USCHDOWN2,ROUND(AVG(NONSCHED),2) AS NONSCHED ,"
+                                         "ROUND(AVG((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED)),2)AS stop_loss_per  "
+                                         "from OI_system_time_2 "
+                                         "where process = '%1' order by rate asc").arg(tr("light"));
+    }else if(ui->CB_select_process->currentText()==tr("eatching")){
+        query_txt4 = QString("select process,ROUND(AVG(rate),2) AS rate,ROUND(AVG(PTrate),2) AS PTrate,ROUND(AVG(PMrate),2) AS PMrate,ROUND(AVG(MTrate),2) AS MTrate,ROUND(AVG(Waitrate),2) AS Waitrate,"
+                                         "ROUND(AVG(USCHDOWN4),2) AS USCHDOWN4 ,ROUND(AVG(USCHDOWN1),2) AS USCHDOWN1,ROUND(AVG(SCHDOWN2),2) AS SCHDOWN2,ROUND(AVG(USCHDOWN2),2) AS USCHDOWN2,ROUND(AVG(NONSCHED),2) AS NONSCHED ,"
+                                         "ROUND(AVG((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED)),2)AS stop_loss_per  "
+                                         "from OI_system_time_2 "
+                                         "where process = '%1' order by rate asc").arg(tr("eatching"));
+    }else if(ui->CB_select_process->currentText()==tr("ALL probe")){
+        query_txt4 = QString("select process,ROUND(AVG(rate),2) AS rate,ROUND(AVG(PTrate),2) AS PTrate,ROUND(AVG(PMrate),2) AS PMrate,ROUND(AVG(MTrate),2) AS MTrate,ROUND(AVG(Waitrate),2) AS Waitrate,"
+                                         "ROUND(AVG(USCHDOWN4),2) AS USCHDOWN4 ,ROUND(AVG(USCHDOWN1),2) AS USCHDOWN1,ROUND(AVG(SCHDOWN2),2) AS SCHDOWN2,ROUND(AVG(USCHDOWN2),2) AS USCHDOWN2,ROUND(AVG(NONSCHED),2) AS NONSCHED ,"
+                                         "ROUND(AVG((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED)),2)AS stop_loss_per  "
+                                         "from OI_system_time_2 "
+                                         "where process LIKE '%1%' order by rate asc").arg(tr("ALL probe"));
+    }
+
+    query_total.exec(query_txt4);
+    qDebug()<<query_total.lastQuery();
+    qDebug()<<query_total.lastError().text();
+    int row_count = ui->total_table->rowCount();
+    query_total.next();
+    ui->total_table->insertRow(row_count);
+    ui->total_table->setCellWidget(row_count,0,new QLabel(tr("AVG")));
+    ((QLabel *)ui->total_table->cellWidget(row_count,0))->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+    ui->total_table->setCellWidget(row_count,1,new QLabel(""));
+    ((QLabel *)ui->total_table->cellWidget(row_count,1))->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+    ui->total_table->setCellWidget(row_count,2,new QLabel(""));
+    ((QLabel *)ui->total_table->cellWidget(row_count,2))->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+    ui->total_table->setCellWidget(row_count,3,new QLabel(query_total.value("rate").toString()));
+    ((QLabel *)ui->total_table->cellWidget(row_count,3))->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+    ((QLabel *)ui->total_table->cellWidget(row_count,3))->setStyleSheet(QString("background-color: #ff5500"));
+    ui->total_table->setCellWidget(row_count,4,new QLabel(query_total.value("PTrate").toString()));
+    ((QLabel *)ui->total_table->cellWidget(row_count,4))->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+    ((QLabel *)ui->total_table->cellWidget(row_count,4))->setStyleSheet(QString("background-color: #ff5500"));
+    ui->total_table->setCellWidget(row_count,5,new QLabel(query_total.value("PMrate").toString()));
+    ((QLabel *)ui->total_table->cellWidget(row_count,5))->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+    ((QLabel *)ui->total_table->cellWidget(row_count,5))->setStyleSheet(QString("background-color: #ff5500"));
+    ui->total_table->setCellWidget(row_count,6,new QLabel(query_total.value("MTrate").toString()));
+    ((QLabel *)ui->total_table->cellWidget(row_count,6))->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+    ((QLabel *)ui->total_table->cellWidget(row_count,6))->setStyleSheet(QString("background-color: #ff5500"));
+    ui->total_table->setCellWidget(row_count,7,new QLabel(query_total.value("Waitrate").toString()));
+    ((QLabel *)ui->total_table->cellWidget(row_count,7))->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+    ((QLabel *)ui->total_table->cellWidget(row_count,7))->setStyleSheet(QString("background-color: #ff5500"));
+    ui->total_table->setCellWidget(row_count,8,new QLabel(query_total.value("USCHDOWN4").toString()));
+    ((QLabel *)ui->total_table->cellWidget(row_count,8))->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+    ((QLabel *)ui->total_table->cellWidget(row_count,8))->setStyleSheet(QString("background-color: #ff5500"));
+    ui->total_table->setCellWidget(row_count,9,new QLabel(query_total.value("USCHDOWN1").toString()));
+    ((QLabel *)ui->total_table->cellWidget(row_count,9))->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+    ((QLabel *)ui->total_table->cellWidget(row_count,9))->setStyleSheet(QString("background-color: #ff5500"));
+    ui->total_table->setCellWidget(row_count,10,new QLabel(query_total.value("SCHDOWN2").toString()));
+    ((QLabel *)ui->total_table->cellWidget(row_count,10))->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+    ((QLabel *)ui->total_table->cellWidget(row_count,10))->setStyleSheet(QString("background-color: #ff5500"));
+    ui->total_table->setCellWidget(row_count,11,new QLabel(query_total.value("USCHDOWN2").toString()));
+    ((QLabel *)ui->total_table->cellWidget(row_count,11))->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+    ((QLabel *)ui->total_table->cellWidget(row_count,11))->setStyleSheet(QString("background-color: #ff5500"));
+    ui->total_table->setCellWidget(row_count,12,new QLabel(query_total.value("NONSCHED").toString()));
+    ((QLabel *)ui->total_table->cellWidget(row_count,12))->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+    ((QLabel *)ui->total_table->cellWidget(row_count,12))->setStyleSheet(QString("background-color: #ff5500"));
+    ui->total_table->setCellWidget(row_count,13,new QLabel(query_total.value("stop_loss_per").toString()));
+    ((QLabel *)ui->total_table->cellWidget(row_count,13))->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+    ((QLabel *)ui->total_table->cellWidget(row_count,13))->setStyleSheet(QString("background-color: #ff5500"));
+
+
+
     chart_search();
 
     QString query_txt6 = QString("select machine_name,ROUND(rate,2)AS'rate' from OI_system_time_2 where process = '%1' order by rate asc ").arg(tr("deposition"));
