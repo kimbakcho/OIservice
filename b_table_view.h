@@ -6,11 +6,11 @@
 #include <QKeyEvent>
 #include <QApplication>
 #include <QClipboard>
-class b_table_widget : public QTableView
+class b_table_view : public QTableView
 {
     Q_OBJECT
 public:
-    explicit b_table_widget(QObject *parent = 0);
+    explicit b_table_view(QObject *parent = 0);
 private:
    void keyPressEvent(QKeyEvent *event);
 

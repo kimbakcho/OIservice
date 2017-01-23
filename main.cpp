@@ -1,9 +1,12 @@
+
+
 #include "mainwindow.h"
 #include <QApplication>
 #include <QTranslator>
 #include <QDebug>
 #include <machine_statue_data.h>
 MainWindow *m_window;
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

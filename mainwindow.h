@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+
 #include <QMainWindow>
 #include <QSqlDatabase>
 #include <QSqlQuery>
@@ -10,6 +11,8 @@
 #include <QDateTime>
 #include <rest_time_widget.h>
 #include <th_monitering.h>
+#include <b_table_widget2.h>
+
 #include <login_form.h>
 #include <QSqlQueryModel>
 #include <b_label.h>
@@ -17,7 +20,7 @@
 #include <add_machine_dialog.h>
 #include <modify_machine_dialog.h>
 
-#include <oi_data.h>
+
 #define Onedaymin 1180
 #define DBID "EIS"
 #define DBPW "wisolfab!"
@@ -44,11 +47,15 @@ public:
     Th_monitering *eatching_thread;
     Th_monitering *probe_thread;
     Th_monitering *probe1_thread;
-    QVector<OI_data> OIdata_list;
+//    QVector<OI_data> OIdata_list;
     QSqlQueryModel detail_table_model;
     QSqlQueryModel total_table_model;
 
     QSqlQueryModel rest_table_model;
+    QSqlQueryModel depostion_deatil_model;
+    QSqlQueryModel light_deatil_model;
+    QSqlQueryModel eatch_deatil_model;
+    QSqlQueryModel probe_deatil_model;
 
     ~MainWindow();
 
@@ -115,6 +122,10 @@ private slots:
     void on_detail_table_clicked(const QModelIndex &index);
 
     void on_resttime_setup_clicked();
+
+    void chart_search();
+
+    void on_detail_chart_seartch_btn_clicked();
 
 private:
     Ui::MainWindow *ui;

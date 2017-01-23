@@ -25,6 +25,7 @@ Th_monitering::Th_monitering(QVector<machine_statue_data> datalist)
 void Th_monitering::run()
 {
     QSqlQuery query(ms_mesdb);
+    bool USCHDOWN3_flag = false;
     while(!isInterruptionRequested()){
         QString append_txt;
         QVector<machine_statue_data> current_datalist;
@@ -50,8 +51,15 @@ void Th_monitering::run()
                 temp_data.setCurrent_event(tr("SCHDOWN1"));
                 temp_data.setColor(QColor("#ff80ff"));
             }else if(event_data=="USCHDOWN3"){
+
                 temp_data.setCurrent_event(tr("USCHDOWN3"));
-                temp_data.setColor(QColor("#ff1f21"));
+                if(!USCHDOWN3_flag){
+                    temp_data.setColor(QColor("#ff1f21"));
+                    USCHDOWN3_flag=true;
+                }else {
+                    temp_data.setColor(QColor("#FF9090"));
+                    USCHDOWN3_flag = false;
+                }
             }else if(event_data=="WAIT"){
                 temp_data.setCurrent_event(tr("WAIT"));
                 temp_data.setColor(QColor("#ffff80"));

@@ -17,8 +17,14 @@
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
+      <property name="styleSheet">
+       <string notr="true">QTabWidget::tab:disabled { width: 0; height: 0; margin: 0; padding: 0; border: none; }</string>
+      </property>
       <property name="currentIndex">
        <number>2</number>
+      </property>
+      <property name="tabsClosable">
+       <bool>false</bool>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -268,7 +274,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="ENGR1_btn">
+           <widget class="QPushButton" name="USCHDOWN3_btn">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
@@ -278,17 +284,17 @@
             <property name="font">
              <font>
               <family>Aharoni</family>
-              <pointsize>12</pointsize>
+              <pointsize>14</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(128, 128, 255);</string>
+             <string notr="true">background-color: rgb(255, 31, 33);</string>
             </property>
             <property name="text">
-             <string>공정,설비
- 테스트</string>
+             <string>설비
+고장</string>
             </property>
            </widget>
           </item>
@@ -318,7 +324,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="USCHDOWN3_btn">
+           <widget class="QPushButton" name="ENGR1_btn">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
@@ -328,17 +334,17 @@
             <property name="font">
              <font>
               <family>Aharoni</family>
-              <pointsize>14</pointsize>
+              <pointsize>12</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(255, 31, 33);</string>
+             <string notr="true">background-color: rgb(128, 128, 255);</string>
             </property>
             <property name="text">
-             <string>설비
-고장</string>
+             <string>공정,설비
+ 테스트</string>
             </property>
            </widget>
           </item>
@@ -566,6 +572,15 @@
         <string>레포트</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_5">
+        <item row="2" column="0">
+         <widget class="b_table_view" name="detail_table"/>
+        </item>
+        <item row="3" column="0">
+         <widget class="b_table_view" name="rest_time_view"/>
+        </item>
+        <item row="1" column="1">
+         <layout class="QGridLayout" name="gridLayout_13"/>
+        </item>
         <item row="0" column="0">
          <layout class="QGridLayout" name="gridLayout_6">
           <item row="0" column="2">
@@ -605,7 +620,7 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="3">
+          <item row="0" column="5">
            <widget class="QPushButton" name="calc_btn">
             <property name="text">
              <string>가동률 계산</string>
@@ -626,11 +641,47 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="3">
+          <item row="1" column="5">
            <widget class="QPushButton" name="resttime_setup">
             <property name="text">
              <string>일별휴지시간 설정 </string>
             </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QLabel" name="label_14">
+            <property name="text">
+             <string>공정 선택 </string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="4">
+           <widget class="QComboBox" name="CB_select_process">
+            <item>
+             <property name="text">
+              <string>전체</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>성막</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>노광</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>에칭</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>프로브</string>
+             </property>
+            </item>
            </widget>
           </item>
          </layout>
@@ -642,14 +693,251 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
-         <widget class="b_table_widget" name="detail_table"/>
-        </item>
-        <item row="3" column="0">
-         <widget class="QTableView" name="rest_time_view"/>
-        </item>
         <item row="2" column="1" rowspan="2">
-         <widget class="b_table_widget" name="total_table"/>
+         <widget class="B_table_widget2" name="total_table">
+          <column>
+           <property name="text">
+            <string>공정</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>설비이름</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>정지로스</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>정상가동</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>공정설비테스트</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>예방정비</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>설비고장</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>대기</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>순간정지</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>자재품절</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>기종변경</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>품질문제</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>휴지</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>정지로스(%)</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string/>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_7">
+        <item row="0" column="0">
+         <widget class="QScrollArea" name="scrollArea_2">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_2">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>1696</width>
+             <height>624</height>
+            </rect>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_9">
+            <item row="0" column="0">
+             <layout class="QGridLayout" name="gridLayout_8">
+              <item row="0" column="0">
+               <widget class="oi_total_ratio_view" name="oi_total_ratio_widget" native="true"/>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_4">
+       <attribute name="title">
+        <string/>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_12">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="gridLayout_10">
+          <item row="2" column="0">
+           <widget class="QTableView" name="depostion_deatil_view">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QTableView" name="light_detail_view">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QTableView" name="eatch_detail_view">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="3">
+           <widget class="QTableView" name="probe_detail_view">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QPushButton" name="detail_chart_seartch_btn">
+            <property name="text">
+             <string>조회</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_9">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>13</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>성막</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="label_10">
+            <property name="font">
+             <font>
+              <pointsize>13</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>노광</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QLabel" name="label_12">
+            <property name="font">
+             <font>
+              <pointsize>13</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>에칭</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3">
+           <widget class="QLabel" name="label_13">
+            <property name="font">
+             <font>
+              <pointsize>13</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>프로브</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="0">
+         <layout class="QGridLayout" name="gridLayout_11">
+          <item row="0" column="0">
+           <widget class="QWidget" name="widget" native="true"/>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>
@@ -680,9 +968,20 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>b_table_widget</class>
+   <class>oi_total_ratio_view</class>
+   <extends>QWidget</extends>
+   <header>oi_total_ratio_view.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>b_table_view</class>
    <extends>QTableView</extends>
-   <header>b_table_widget.h</header>
+   <header>b_table_view.h</header>
+  </customwidget>
+  <customwidget>
+   <class>B_table_widget2</class>
+   <extends>QTableWidget</extends>
+   <header>b_table_widget2.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

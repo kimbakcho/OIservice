@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network sql
+QT       += core gui network charts sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -31,8 +31,15 @@ SOURCES += main.cpp\
     add_machine_dialog.cpp \
     modify_machine_dialog.cpp \
     oi_data.cpp \
-    b_table_widget.cpp \
-    rest_time_widget.cpp
+    rest_time_widget.cpp \
+    oi_total_ratio_chart.cpp \
+    oi_total_ratio_chartview.cpp \
+    oi_total_ratio_view.cpp \
+    oi_select_ratio_chart.cpp \
+    b_table_view.cpp \
+    b_table_widget2.cpp \
+    simplecrypt/simplecrypt.cpp \
+    join_popup.cpp
 
 HEADERS  += mainwindow.h \
     oistystemsoap/oisystem.nsmap \
@@ -50,8 +57,15 @@ HEADERS  += mainwindow.h \
     add_machine_dialog.h \
     modify_machine_dialog.h \
     oi_data.h \
-    b_table_widget.h \
-    rest_time_widget.h
+    rest_time_widget.h \
+    oi_total_ratio_chart.h \
+    oi_total_ratio_chartview.h \
+    oi_total_ratio_view.h \
+    oi_select_ratio_chart.h \
+    b_table_view.h \
+    b_table_widget2.h \
+    simplecrypt/simplecrypt.h \
+    join_popup.h
 
 FORMS    += mainwindow.ui \
     operatingratio/operating_ratio_action.ui \
@@ -60,7 +74,9 @@ FORMS    += mainwindow.ui \
     manager_login.ui \
     add_machine_dialog.ui \
     modify_machine_dialog.ui \
-    rest_time_widget.ui
+    rest_time_widget.ui \
+    oi_total_ratio_view.ui \
+    join_popup.ui
 
 RESOURCES += \
     resource.qrc

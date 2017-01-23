@@ -1,11 +1,11 @@
-#include "b_table_widget.h"
+#include "b_table_view.h"
 
-b_table_widget::b_table_widget(QObject *parent)
+b_table_view::b_table_view(QObject *parent)
 {
 
 }
 
-void b_table_widget::keyPressEvent(QKeyEvent *event)
+void b_table_view::keyPressEvent(QKeyEvent *event)
 {
     // If Ctrl-C typed
      if (event->key() == Qt::Key_C && (event->modifiers() & Qt::ControlModifier))
