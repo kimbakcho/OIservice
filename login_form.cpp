@@ -32,24 +32,24 @@ login_form::login_form(QString event_name, QString machine_code, QWidget *parent
     equip= machine_code.toStdString();
     eventid = event_name.toStdString();
 
-    QString mydb_name = QString("MY_MESDB_OI_%1").arg(QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss"));
-    if(!my_mesdb.contains(mydb_name)){
-        my_mesdb = QSqlDatabase::addDatabase("QMYSQL",mydb_name);
-        my_mesdb.setHostName("fabsv.wisol.co.kr");
-        my_mesdb.setPort(3306);
-        my_mesdb.setUserName(DBID);
-        my_mesdb.setPassword(DBPW);
-        my_mesdb.setDatabaseName("FAB");
-        if(!my_mesdb.open()){
-            qDebug()<<"fasle";
-            qDebug()<<my_mesdb.lastError().text();
-        }else {
-            qDebug()<<"open";
-        }
-    }else {
-        my_mesdb = QSqlDatabase::database(mydb_name);
-    }
-    crypt.setKey((Q_UINT64_C(0x20170123)));
+//    QString mydb_name = QString("MY_MESDB_OI_%1").arg(QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss"));
+//    if(!my_mesdb.contains(mydb_name)){
+//        my_mesdb = QSqlDatabase::addDatabase("QMYSQL",mydb_name);
+//        my_mesdb.setHostName("fabsv.wisol.co.kr");
+//        my_mesdb.setPort(3306);
+//        my_mesdb.setUserName(DBID);
+//        my_mesdb.setPassword(DBPW);
+//        my_mesdb.setDatabaseName("FAB");
+//        if(!my_mesdb.open()){
+//            qDebug()<<"fasle";
+//            qDebug()<<my_mesdb.lastError().text();
+//        }else {
+//            qDebug()<<"open";
+//        }
+//    }else {
+//        my_mesdb = QSqlDatabase::database(mydb_name);
+//    }
+
 }
 login_form::login_form(QString event_name, QString machine_code,QString machine_name,QString process, QWidget *parent) :
     QWidget(parent),
@@ -75,24 +75,24 @@ login_form::login_form(QString event_name, QString machine_code,QString machine_
     this->process = process;
     this->machine_code = machine_code;
 
-    QString mydb_name = QString("MY_MESDB_OI_%1").arg(QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss"));
-    if(!my_mesdb.contains(mydb_name)){
-        my_mesdb = QSqlDatabase::addDatabase("QMYSQL",mydb_name);
-        my_mesdb.setHostName("fabsv.wisol.co.kr");
-        my_mesdb.setPort(3306);
-        my_mesdb.setUserName(DBID);
-        my_mesdb.setPassword(DBPW);
-        my_mesdb.setDatabaseName("FAB");
-        if(!my_mesdb.open()){
-            qDebug()<<"fasle";
-            qDebug()<<my_mesdb.lastError().text();
-        }else {
-            qDebug()<<"open";
-        }
-    }else {
-        my_mesdb = QSqlDatabase::database(mydb_name);
-    }
-    crypt.setKey((Q_UINT64_C(0x20170123)));
+//    QString mydb_name = QString("MY_MESDB_OI_%1").arg(QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss"));
+//    if(!my_mesdb.contains(mydb_name)){
+//        my_mesdb = QSqlDatabase::addDatabase("QMYSQL",mydb_name);
+//        my_mesdb.setHostName("fabsv.wisol.co.kr");
+//        my_mesdb.setPort(3306);
+//        my_mesdb.setUserName(DBID);
+//        my_mesdb.setPassword(DBPW);
+//        my_mesdb.setDatabaseName("FAB");
+//        if(!my_mesdb.open()){
+//            qDebug()<<"fasle";
+//            qDebug()<<my_mesdb.lastError().text();
+//        }else {
+//            qDebug()<<"open";
+//        }
+//    }else {
+//        my_mesdb = QSqlDatabase::database(mydb_name);
+//    }
+
 }
 
 QString login_form::getUser_name() const
@@ -142,20 +142,32 @@ login_form::~login_form()
 
 void login_form::on_login_btn_clicked()
 {
-      QSqlQuery query(my_mesdb);
-      query.exec(QString("select * from OI_system_login_info where number = '%1'").arg(ui->ID_LE->text()));
-      if(query.next()){
-          if(crypt.decryptToString(query.value("password").toString()) != ui->PW_LE->text()){
-              QMessageBox msg;
-              msg.setText(tr("password wrong"));
-              msg.addButton(QMessageBox::Ok);
-              msg.exec();
-              ui->login_btn->setEnabled(true);
-              return ;
-          }
-          user_name = query.value("name").toString();
-          _ns1__OIWebEquipmentStatusResponse response;
-          soap_event.OIWebEquipmentStatus(&data,response);
+    QString mydb_name = QString("MY_MESDB_OI_%1").arg(QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss"));
+    if(!my_mesdb.contains(mydb_name)){
+        my_mesdb = QSqlDatabase::addDatabase("QMYSQL",mydb_name);
+        my_mesdb.setHostName("fabsv.wisol.co.kr");
+        my_mesdb.setPort(3306);
+        my_mesdb.setUserName(DBID);
+        my_mesdb.setPassword(DBPW);
+        my_mesdb.setDatabaseName("FAB");
+        if(!my_mesdb.open()){
+            qDebug()<<"fasle";
+            qDebug()<<my_mesdb.lastError().text();
+            QMessageBox msg;
+            msg.setText(tr("db join false again try"));
+            msg.addButton(QMessageBox::Ok);
+            msg.exec();
+            return ;
+        }else {
+            qDebug()<<"open";
+        }
+    }else {
+        my_mesdb = QSqlDatabase::database(mydb_name);
+    }
+
+          QSqlQuery query(my_mesdb);
+          user_name = ui->ID_LE->text();
+
           if(event_name=="RUN"){
               event_name = event_name.replace("RUN",tr("RUN"));
           }else if(event_name=="ENGR1"){
@@ -213,26 +225,32 @@ void login_form::on_login_btn_clicked()
                                       .arg(process).arg(machine_name).arg(machine_code).arg(currenttime_str).arg(user_name).arg(event_name);
                   query1.exec(query_txt);
               }else {
+                  QDateTime stop_time = query1.value("stop_time").toDateTime();
+                  qint64 secs = stop_time.secsTo(current_datetime);
+                  QString time_str = from_sec_to_timestr(secs);
+                  query_txt = QString("Update `OI_system_time` SET "
+                                      "run_time = '%1',run_name='%2',stop_time_calc='%3' "
+                                      "Where stop_time = '%5' AND machine_code ='%6'")
+                                      .arg(currenttime_str).arg(user_name).arg(time_str)
+                                      .arg(query1.value("stop_time").toDateTime().toString("yyyy-MM-dd hh:mm:ss"))
+                                      .arg(query1.value("machine_code").toString());
+                  query1.exec(query_txt);
+                  query_txt = QString("INSERT INTO `OI_system_time` "
+                                      "(`process`,`machine_name`, `machine_code`, `stop_time`, `stop_name` , `stop_data`) "
+                                      "VALUES ('%1', '%2', '%3', '%4','%5','%6');")
+                                      .arg(process).arg(machine_name).arg(machine_code).arg(currenttime_str).arg(user_name).arg(event_name);
+                  query1.exec(query_txt);
 
               }
           }
-
+          _ns1__OIWebEquipmentStatusResponse response;
+          soap_event.OIWebEquipmentStatus(&data,response);
           QMessageBox msg;
           msg.setText(tr("ok"));
           msg.addButton(QMessageBox::Ok);
           msg.exec();
           close();
           m_window->on_search_btn_clicked_connection();
-
-      }else {
-          QMessageBox msg;
-          msg.setText(tr("don't have number"));
-          msg.setDefaultButton(QMessageBox::Ok);
-          msg.exec();
-          ui->login_btn->setEnabled(true);
-          close();
-      }
-
 }
 
 void login_form::keyPressEvent(QKeyEvent *event)
@@ -246,10 +264,4 @@ void login_form::keyPressEvent(QKeyEvent *event)
 void login_form::closeEvent(QCloseEvent *event)
 {
     this->deleteLater();
-}
-
-void login_form::on_join_btn_clicked()
-{
-    join_popup *joinpopup = new join_popup();
-    joinpopup->exec();
 }

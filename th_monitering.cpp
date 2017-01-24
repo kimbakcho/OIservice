@@ -51,14 +51,11 @@ void Th_monitering::run()
                 temp_data.setCurrent_event(tr("SCHDOWN1"));
                 temp_data.setColor(QColor("#ff80ff"));
             }else if(event_data=="USCHDOWN3"){
-
                 temp_data.setCurrent_event(tr("USCHDOWN3"));
                 if(!USCHDOWN3_flag){
                     temp_data.setColor(QColor("#ff1f21"));
-                    USCHDOWN3_flag=true;
                 }else {
                     temp_data.setColor(QColor("#FF9090"));
-                    USCHDOWN3_flag = false;
                 }
             }else if(event_data=="WAIT"){
                 temp_data.setCurrent_event(tr("WAIT"));
@@ -84,6 +81,12 @@ void Th_monitering::run()
             }
             emit send_listdata(temp_data);
             current_datalist.append(temp_data);
+
+        }
+        if(!USCHDOWN3_flag){
+            USCHDOWN3_flag=true;
+        }else {
+            USCHDOWN3_flag = false;
         }
         QThread::sleep(1);
 

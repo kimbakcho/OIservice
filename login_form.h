@@ -65,7 +65,6 @@ private slots:
 
     void on_login_btn_clicked();
 
-    void on_join_btn_clicked();
 
 private:
     void keyPressEvent(QKeyEvent *event);

@@ -684,6 +684,67 @@
             </item>
            </widget>
           </item>
+          <item row="1" column="3">
+           <widget class="QLabel" name="label_15">
+            <property name="text">
+             <string>정렬 데이터 선택 </string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="4">
+           <widget class="QComboBox" name="CB_data_list_type">
+            <item>
+             <property name="text">
+              <string>정상가동</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>공정,설비테스트</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>예방정비</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>설비고장</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>대기</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>순간정지</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>자재품절</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>기종변경</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>품질문제</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>휴지</string>
+             </property>
+            </item>
+           </widget>
+          </item>
          </layout>
         </item>
         <item row="1" column="0">
@@ -769,42 +830,9 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_3">
-       <attribute name="title">
-        <string/>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_7">
-        <item row="0" column="0">
-         <widget class="QScrollArea" name="scrollArea_2">
-          <property name="widgetResizable">
-           <bool>true</bool>
-          </property>
-          <widget class="QWidget" name="scrollAreaWidgetContents_2">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>1696</width>
-             <height>624</height>
-            </rect>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_9">
-            <item row="0" column="0">
-             <layout class="QGridLayout" name="gridLayout_8">
-              <item row="0" column="0">
-               <widget class="oi_total_ratio_view" name="oi_total_ratio_widget" native="true"/>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </widget>
-         </widget>
-        </item>
-       </layout>
-      </widget>
       <widget class="QWidget" name="tab_4">
        <attribute name="title">
-        <string/>
+        <string>그래프</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_12">
         <item row="0" column="0">
@@ -930,14 +958,116 @@
             </property>
            </widget>
           </item>
+          <item row="0" column="2">
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <widget class="QLabel" name="label_16">
+              <property name="text">
+               <string>정렬 순서</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="CB_detaildatalist">
+              <item>
+               <property name="text">
+                <string>정상가동</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>공정,설비테스트</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>예방정비</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>설비고장</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>대기</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>순간정지</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>자재품절</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>기종변경</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>품질문제</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>휴지</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
          </layout>
         </item>
         <item row="1" column="0">
          <layout class="QGridLayout" name="gridLayout_11">
           <item row="0" column="0">
-           <widget class="QWidget" name="widget" native="true"/>
+           <widget class="oi_select_ratio_view" name="oi_select_ratio_widget" native="true">
+            <property name="mouseTracking">
+             <bool>false</bool>
+            </property>
+           </widget>
           </item>
          </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>Worst10</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_7">
+        <item row="0" column="0">
+         <widget class="QScrollArea" name="scrollArea_2">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_2">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>1696</width>
+             <height>624</height>
+            </rect>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_9">
+            <item row="0" column="0">
+             <layout class="QGridLayout" name="gridLayout_8">
+              <item row="0" column="0">
+               <widget class="oi_total_ratio_view" name="oi_total_ratio_widget" native="true"/>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -982,6 +1112,12 @@
    <class>B_table_widget2</class>
    <extends>QTableWidget</extends>
    <header>b_table_widget2.h</header>
+  </customwidget>
+  <customwidget>
+   <class>oi_select_ratio_view</class>
+   <extends>QWidget</extends>
+   <header>oi_select_ratio_view.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

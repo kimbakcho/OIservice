@@ -127,6 +127,10 @@ private slots:
 
     void on_detail_chart_seartch_btn_clicked();
 
+    void on_CB_data_list_type_currentIndexChanged(const QString &arg1);
+
+    void on_CB_detaildatalist_currentIndexChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
 };

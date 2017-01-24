@@ -40,7 +40,8 @@ SOURCES += main.cpp\
     b_table_widget2.cpp \
     simplecrypt/simplecrypt.cpp \
     join_popup.cpp \
-    oi_select_ratio_chartview.cpp
+    oi_select_ratio_chartview.cpp \
+    oi_select_ratio_view.cpp
 
 HEADERS  += mainwindow.h \
     oistystemsoap/oisystem.nsmap \
@@ -67,7 +68,8 @@ HEADERS  += mainwindow.h \
     b_table_widget2.h \
     simplecrypt/simplecrypt.h \
     join_popup.h \
-    oi_select_ratio_chartview.h
+    oi_select_ratio_chartview.h \
+    oi_select_ratio_view.h
 
 FORMS    += mainwindow.ui \
     operatingratio/operating_ratio_action.ui \
@@ -78,7 +80,8 @@ FORMS    += mainwindow.ui \
     modify_machine_dialog.ui \
     rest_time_widget.ui \
     oi_total_ratio_view.ui \
-    join_popup.ui
+    join_popup.ui \
+    oi_select_ratio_view.ui
 
 RESOURCES += \
     resource.qrc

@@ -1,43 +1,49 @@
-#include "oi_total_ratio_view.h"
-#include "ui_oi_total_ratio_view.h"
+#include "oi_select_ratio_view.h"
+#include "ui_oi_select_ratio_view.h"
 
+#include "mainwindow.h"
 
-oi_total_ratio_view::oi_total_ratio_view(QWidget *parent) :
+extern MainWindow *m_window;
+
+oi_select_ratio_view::oi_select_ratio_view(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::oi_total_ratio_view)
+    ui(new Ui::oi_select_ratio_view)
 {
     ui->setupUi(this);
-    ratio_total_chart = new oi_total_ratio_chart();
-    ratio_total_chart->setAnimationOptions(QChart::SeriesAnimations);
-    ratio_total_chartview = new oi_total_ratio_chartview(ratio_total_chart);
-    ratio_total_chartview->setRenderHint(QPainter::Antialiasing);
-    ui->center_layout->addWidget(ratio_total_chartview);
-
+    ratio_select_chart = new oi_select_ratio_chart();
+    ratio_select_chart->setAnimationOptions(QChart::SeriesAnimations);
+    ratio_select_chartview = new oi_select_ratio_chartview(ratio_select_chart);
+    ratio_select_chartview->setRenderHint(QPainter::Antialiasing);
+    ui->center_layout->addWidget(ratio_select_chartview);
 }
-oi_total_ratio_view::oi_total_ratio_view(QSqlDatabase db, QWidget *parent):
+
+oi_select_ratio_view::oi_select_ratio_view(QSqlDatabase db, QWidget *parent):
     QWidget(parent),
-    ui(new Ui::oi_total_ratio_view)
+    ui(new Ui::oi_select_ratio_view)
 {
     ui->setupUi(this);
+    ratio_select_chart = new oi_select_ratio_chart();
+    ratio_select_chart->setAnimationOptions(QChart::SeriesAnimations);
+    ratio_select_chartview = new oi_select_ratio_chartview(ratio_select_chart);
+    ratio_select_chartview->setRenderHint(QPainter::Antialiasing);
+    ui->center_layout->addWidget(ratio_select_chartview);
 }
 
-QSqlDatabase oi_total_ratio_view::getDb() const
+QSqlDatabase oi_select_ratio_view::getDb() const
 {
     return db;
 }
 
-void oi_total_ratio_view::setDb(const QSqlDatabase &value)
+void oi_select_ratio_view::setDb(const QSqlDatabase &value)
 {
     db = value;
 }
 
-
-
-void oi_total_ratio_view::chart_update()
+void oi_select_ratio_view::chart_update(QStringList itemlist)
 {
-    ratio_total_chart->removeAllSeries();
-    if(ratio_total_chart->axisX()!=NULL){
-        ratio_total_chart->removeAxis(ratio_total_chart->axisX());
+    ratio_select_chart->removeAllSeries();
+    if(ratio_select_chart->axisX()!=NULL){
+        ratio_select_chart->removeAxis(ratio_select_chart->axisX());
     }
 
 
@@ -52,7 +58,6 @@ void oi_total_ratio_view::chart_update()
     USCHDOWN2 =new QBarSet(tr("USCHDOWN2"));
     NONSCHED =new QBarSet(tr("NONSCHED"));
 
-
     connect(Nomal,SIGNAL(hovered(bool,int)),this,SLOT(bar_hovered(bool,int)));
     connect(PT,SIGNAL(hovered(bool,int)),this,SLOT(bar_hovered(bool,int)));
     connect(PM,SIGNAL(hovered(bool,int)),this,SLOT(bar_hovered(bool,int)));
@@ -64,10 +69,16 @@ void oi_total_ratio_view::chart_update()
     connect(USCHDOWN2,SIGNAL(hovered(bool,int)),this,SLOT(bar_hovered(bool,int)));
     connect(NONSCHED,SIGNAL(hovered(bool,int)),this,SLOT(bar_hovered(bool,int)));
 
-
-
     QSqlQuery query5(db);
-    query5.exec("select * from OI_system_time_2 where rate <> 100 order by rate asc LIMIT 10 ");
+    QString where_search;
+    for(int i=0;i<itemlist.size();i++){
+        if(i == itemlist.size()-1){
+            where_search.append(QString("machine_name = '%1'").arg(itemlist.at(i)));
+        }else {
+            where_search.append(QString("machine_name = '%1' OR ").arg(itemlist.at(i)));
+        }
+    }
+    query5.exec(QString("select * from OI_system_time_2 where %1").arg(where_search));
     QStringList categories;
     while(query5.next()){
         Nomal->append(ROUNDING(query5.value("rate").toDouble(),2));
@@ -94,77 +105,63 @@ void oi_total_ratio_view::chart_update()
     series->append(USCHDOWN2);
     series->append(NONSCHED);
     series->setLabelsVisible(true);
-    ratio_total_chart->addSeries(series);
+    ratio_select_chart->addSeries(series);
+
 
     QBarCategoryAxis *axis = new QBarCategoryAxis();
     axis->append(categories);
-    ratio_total_chart->createDefaultAxes();
-     ratio_total_chart->setAxisX(axis,series);
-     ratio_total_chart->legend()->setVisible(true);
+    ratio_select_chart->createDefaultAxes();
+     ratio_select_chart->setAxisX(axis,series);
+     ratio_select_chart->legend()->setVisible(true);
+
 }
 
-void oi_total_ratio_view::bar_hovered(bool status, int index)
+void oi_select_ratio_view::bar_hovered(bool status, int index)
 {
-
     if(status){
-        QString toolTip_text;
         QString Label_txt;
         if(Nomal->at(index) > 0 ){
-            toolTip_text = toolTip_text.append(QString("%1 = %2 \n").arg(tr("run")).arg(Nomal->at(index)));
             Label_txt = Label_txt.append(QString("%1 = %2 ").arg(tr("run")).arg(Nomal->at(index)));
         }
         if(PT->at(index) >0 ){
-            toolTip_text = toolTip_text.append(QString("%1 = %2 \n").arg(tr("PT")).arg(PT->at(index)));
             Label_txt = Label_txt.append(QString("%1 = %2 ").arg(tr("PT")).arg(PT->at(index)));
         }
         if(PM->at(index)>0){
-            toolTip_text = toolTip_text.append(QString("%1 = %2 \n").arg(tr("PM")).arg(PM->at(index)));
             Label_txt = Label_txt.append(QString("%1 = %2 ").arg(tr("PM")).arg(PM->at(index)));
         }
         if(MT->at(index)>0){
-            toolTip_text = toolTip_text.append(QString("%1 = %2 \n").arg(tr("MT")).arg(MT->at(index)));
             Label_txt = Label_txt.append(QString("%1 = %2 ").arg(tr("MT")).arg(MT->at(index)));
         }
         if(WAIT->at(index)>0){
-            toolTip_text = toolTip_text.append(QString("%1 = %2 \n").arg(tr("WAIT")).arg(WAIT->at(index)));
             Label_txt = Label_txt.append(QString("%1 = %2 ").arg(tr("WAIT")).arg(WAIT->at(index)));
         }
         if(USCHDOWN4->at(index)>0){
-            toolTip_text = toolTip_text.append(QString("%1 = %2 \n").arg(tr("USCHDOWN4")).arg(USCHDOWN4->at(index)));
             Label_txt = Label_txt.append(QString("%1 = %2 ").arg(tr("USCHDOWN4")).arg(USCHDOWN4->at(index)));
         }
         if(USCHDOWN1->at(index)>0){
-            toolTip_text = toolTip_text.append(QString("%1 = %2 \n").arg(tr("USCHDOWN1")).arg(USCHDOWN1->at(index)));
             Label_txt = Label_txt.append(QString("%1 = %2 ").arg(tr("USCHDOWN1")).arg(USCHDOWN1->at(index)));
         }
         if(SCHDOWN2->at(index)>0){
-            toolTip_text = toolTip_text.append(QString("%1 = %2 \n").arg(tr("SCHDOWN2")).arg(SCHDOWN2->at(index)));
             Label_txt = Label_txt.append(QString("%1 = %2 ").arg(tr("SCHDOWN2")).arg(SCHDOWN2->at(index)));
         }
         if(USCHDOWN2->at(index)>0){
-            toolTip_text = toolTip_text.append(QString("%1 = %2 \n").arg(tr("USCHDOWN2")).arg(USCHDOWN2->at(index)));
             Label_txt = Label_txt.append(QString("%1 = %2 ").arg(tr("USCHDOWN2")).arg(USCHDOWN2->at(index)));
         }
         if(NONSCHED->at(index)>0){
-            toolTip_text = toolTip_text.append(QString("%1 = %2 \n").arg(tr("NONSCHED")).arg(NONSCHED->at(index)));
             Label_txt = Label_txt.append(QString("%1 = %2 ").arg(tr("NONSCHED")).arg(NONSCHED->at(index)));
         }
-        QToolTip::showText(ratio_total_chartview->getCurrent_point(),toolTip_text,ratio_total_chartview,QRect(0,0,120,120),70000);
         ui->explan_txt->setText(Label_txt);
     }else{
 
     }
-
 }
 
-
-
-oi_total_ratio_view::~oi_total_ratio_view()
+oi_select_ratio_view::~oi_select_ratio_view()
 {
     delete ui;
 }
 
-void oi_total_ratio_view::on_zoom_init_btn_clicked()
+void oi_select_ratio_view::on_zoom_init_btn_clicked()
 {
-    ratio_total_chart->zoomReset();
+    ratio_select_chart->zoomReset();
 }

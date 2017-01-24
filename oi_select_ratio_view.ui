@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>oi_total_ratio_view</class>
- <widget class="QWidget" name="oi_total_ratio_view">
+ <class>oi_select_ratio_view</class>
+ <widget class="QWidget" name="oi_select_ratio_view">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>772</width>
-    <height>405</height>
+    <width>900</width>
+    <height>247</height>
    </rect>
+  </property>
+  <property name="mouseTracking">
+   <bool>false</bool>
+  </property>
+  <property name="acceptDrops">
+   <bool>false</bool>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -24,7 +30,10 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>14</pointsize>
+       <family>Aharoni</family>
+       <pointsize>16</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
      <property name="text">
