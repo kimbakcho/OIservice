@@ -597,7 +597,10 @@ void MainWindow::on_calc_btn_clicked()
                      temp_calc = temp_calc + plustime;
                 }
             }
-            lost_sec = lost_sec + temp_calc;
+            if(query1.value("stop_data").toString() != tr("WAIT")){
+                lost_sec = lost_sec + temp_calc;
+            }
+
             QString query_txt3 = QString("INSERT INTO "
                                          "`OI_system_time` "
                                          "(`process`, `machine_name`, `machine_code`, "
@@ -871,35 +874,35 @@ void MainWindow::on_calc_btn_clicked()
         query_txt4 = QString("select process,machine_name,machine_code,"
                                          "stop_time_calc,ROUND(rate,2) AS rate,ROUND(PTrate,2) AS PTrate,ROUND(PMrate,2) AS PMrate,ROUND(MTrate,2) AS MTrate,ROUND(Waitrate,2) AS Waitrate,"
                                          "ROUND(USCHDOWN4,2) AS USCHDOWN4 ,ROUND(USCHDOWN1,2) AS USCHDOWN1,ROUND(SCHDOWN2,2) AS SCHDOWN2,ROUND(USCHDOWN2,2) AS USCHDOWN2,ROUND(NONSCHED,2) AS NONSCHED ,"
-                                         "ROUND((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED),2)AS stop_loss_per  "
+                                         "ROUND((PTrate+PMrate+MTrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED),2)AS stop_loss_per  "
                                          "from OI_system_time_2 "
                                          "order by %1").arg(orderby_data);
     }else if(ui->CB_select_process->currentText()==tr("deposition")){
         query_txt4 = QString("select process,machine_name,machine_code,"
                                          "stop_time_calc,ROUND(rate,2) AS rate,ROUND(PTrate,2) AS PTrate,ROUND(PMrate,2) AS PMrate,ROUND(MTrate,2) AS MTrate,ROUND(Waitrate,2) AS Waitrate,"
                                          "ROUND(USCHDOWN4,2) AS USCHDOWN4 ,ROUND(USCHDOWN1,2) AS USCHDOWN1,ROUND(SCHDOWN2,2) AS SCHDOWN2,ROUND(USCHDOWN2,2) AS USCHDOWN2,ROUND(NONSCHED,2) AS NONSCHED ,"
-                                         "ROUND((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED),2)AS stop_loss_per  "
+                                         "ROUND((PTrate+PMrate+MTrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED),2)AS stop_loss_per  "
                                          "from OI_system_time_2 "
                                          "where process = '%1' order by %2").arg(tr("deposition")).arg(orderby_data);
     }else if(ui->CB_select_process->currentText()==tr("light")){
         query_txt4 = QString("select process,machine_name,machine_code,"
                                          "stop_time_calc,ROUND(rate,2) AS rate,ROUND(PTrate,2) AS PTrate,ROUND(PMrate,2) AS PMrate,ROUND(MTrate,2) AS MTrate,ROUND(Waitrate,2) AS Waitrate,"
                                          "ROUND(USCHDOWN4,2) AS USCHDOWN4 ,ROUND(USCHDOWN1,2) AS USCHDOWN1,ROUND(SCHDOWN2,2) AS SCHDOWN2,ROUND(USCHDOWN2,2) AS USCHDOWN2,ROUND(NONSCHED,2) AS NONSCHED ,"
-                                         "ROUND((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED),2)AS stop_loss_per  "
+                                         "ROUND((PTrate+PMrate+MTrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED),2)AS stop_loss_per  "
                                          "from OI_system_time_2 "
                                          "where process = '%1' order by %2").arg(tr("light")).arg(orderby_data);
     }else if(ui->CB_select_process->currentText()==tr("eatching")){
         query_txt4 = QString("select process,machine_name,machine_code,"
                                          "stop_time_calc,ROUND(rate,2) AS rate,ROUND(PTrate,2) AS PTrate,ROUND(PMrate,2) AS PMrate,ROUND(MTrate,2) AS MTrate,ROUND(Waitrate,2) AS Waitrate,"
                                          "ROUND(USCHDOWN4,2) AS USCHDOWN4 ,ROUND(USCHDOWN1,2) AS USCHDOWN1,ROUND(SCHDOWN2,2) AS SCHDOWN2,ROUND(USCHDOWN2,2) AS USCHDOWN2,ROUND(NONSCHED,2) AS NONSCHED ,"
-                                         "ROUND((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED),2)AS stop_loss_per  "
+                                         "ROUND((PTrate+PMrate+MTrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED),2)AS stop_loss_per  "
                                          "from OI_system_time_2 "
                                          "where process = '%1' order by %2").arg(tr("eatching")).arg(orderby_data);
     }else if(ui->CB_select_process->currentText()==tr("ALL probe")){
         query_txt4 = QString("select process,machine_name,machine_code,"
                                          "stop_time_calc,ROUND(rate,2) AS rate,ROUND(PTrate,2) AS PTrate,ROUND(PMrate,2) AS PMrate,ROUND(MTrate,2) AS MTrate,ROUND(Waitrate,2) AS Waitrate,"
                                          "ROUND(USCHDOWN4,2) AS USCHDOWN4 ,ROUND(USCHDOWN1,2) AS USCHDOWN1,ROUND(SCHDOWN2,2) AS SCHDOWN2,ROUND(USCHDOWN2,2) AS USCHDOWN2,ROUND(NONSCHED,2) AS NONSCHED ,"
-                                         "ROUND((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED),2)AS stop_loss_per  "
+                                         "ROUND((PTrate+PMrate+MTrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED),2)AS stop_loss_per  "
                                          "from OI_system_time_2 "
                                          "where process LIKE '%1%' order by %2").arg(tr("ALL probe")).arg(orderby_data);
     }
@@ -943,31 +946,31 @@ void MainWindow::on_calc_btn_clicked()
     if(ui->CB_select_process->currentText()==tr("ALLPRocess")){
         query_txt4 = QString("select process,ROUND(AVG(rate),2) AS rate,ROUND(AVG(PTrate),2) AS PTrate,ROUND(AVG(PMrate),2) AS PMrate,ROUND(AVG(MTrate),2) AS MTrate,ROUND(AVG(Waitrate),2) AS Waitrate,"
                                          "ROUND(AVG(USCHDOWN4),2) AS USCHDOWN4 ,ROUND(AVG(USCHDOWN1),2) AS USCHDOWN1,ROUND(AVG(SCHDOWN2),2) AS SCHDOWN2,ROUND(AVG(USCHDOWN2),2) AS USCHDOWN2,ROUND(AVG(NONSCHED),2) AS NONSCHED ,"
-                                         "ROUND(AVG((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED)),2)AS stop_loss_per  "
+                                         "ROUND(AVG((PTrate+PMrate+MTrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED)),2)AS stop_loss_per  "
                                          "from OI_system_time_2 "
                                          "order by rate asc");
     }else if(ui->CB_select_process->currentText()==tr("deposition")){
         query_txt4 = QString("select process,ROUND(AVG(rate),2) AS rate,ROUND(AVG(PTrate),2) AS PTrate,ROUND(AVG(PMrate),2) AS PMrate,ROUND(AVG(MTrate),2) AS MTrate,ROUND(AVG(Waitrate),2) AS Waitrate,"
                                          "ROUND(AVG(USCHDOWN4),2) AS USCHDOWN4 ,ROUND(AVG(USCHDOWN1),2) AS USCHDOWN1,ROUND(AVG(SCHDOWN2),2) AS SCHDOWN2,ROUND(AVG(USCHDOWN2),2) AS USCHDOWN2,ROUND(AVG(NONSCHED),2) AS NONSCHED ,"
-                                         "ROUND(AVG((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED)),2)AS stop_loss_per  "
+                                         "ROUND(AVG((PTrate+PMrate+MTrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED)),2)AS stop_loss_per  "
                                          "from OI_system_time_2 "
                                          "where process = '%1' order by rate asc").arg(tr("deposition"));
     }else if(ui->CB_select_process->currentText()==tr("light")){
         query_txt4 = QString("select process,ROUND(AVG(rate),2) AS rate,ROUND(AVG(PTrate),2) AS PTrate,ROUND(AVG(PMrate),2) AS PMrate,ROUND(AVG(MTrate),2) AS MTrate,ROUND(AVG(Waitrate),2) AS Waitrate,"
                                          "ROUND(AVG(USCHDOWN4),2) AS USCHDOWN4 ,ROUND(AVG(USCHDOWN1),2) AS USCHDOWN1,ROUND(AVG(SCHDOWN2),2) AS SCHDOWN2,ROUND(AVG(USCHDOWN2),2) AS USCHDOWN2,ROUND(AVG(NONSCHED),2) AS NONSCHED ,"
-                                         "ROUND(AVG((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED)),2)AS stop_loss_per  "
+                                         "ROUND(AVG((PTrate+PMrate+MTrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED)),2)AS stop_loss_per  "
                                          "from OI_system_time_2 "
                                          "where process = '%1' order by rate asc").arg(tr("light"));
     }else if(ui->CB_select_process->currentText()==tr("eatching")){
         query_txt4 = QString("select process,ROUND(AVG(rate),2) AS rate,ROUND(AVG(PTrate),2) AS PTrate,ROUND(AVG(PMrate),2) AS PMrate,ROUND(AVG(MTrate),2) AS MTrate,ROUND(AVG(Waitrate),2) AS Waitrate,"
                                          "ROUND(AVG(USCHDOWN4),2) AS USCHDOWN4 ,ROUND(AVG(USCHDOWN1),2) AS USCHDOWN1,ROUND(AVG(SCHDOWN2),2) AS SCHDOWN2,ROUND(AVG(USCHDOWN2),2) AS USCHDOWN2,ROUND(AVG(NONSCHED),2) AS NONSCHED ,"
-                                         "ROUND(AVG((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED)),2)AS stop_loss_per  "
+                                         "ROUND(AVG((PTrate+PMrate+MTrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED)),2)AS stop_loss_per  "
                                          "from OI_system_time_2 "
                                          "where process = '%1' order by rate asc").arg(tr("eatching"));
     }else if(ui->CB_select_process->currentText()==tr("ALL probe")){
         query_txt4 = QString("select process,ROUND(AVG(rate),2) AS rate,ROUND(AVG(PTrate),2) AS PTrate,ROUND(AVG(PMrate),2) AS PMrate,ROUND(AVG(MTrate),2) AS MTrate,ROUND(AVG(Waitrate),2) AS Waitrate,"
                                          "ROUND(AVG(USCHDOWN4),2) AS USCHDOWN4 ,ROUND(AVG(USCHDOWN1),2) AS USCHDOWN1,ROUND(AVG(SCHDOWN2),2) AS SCHDOWN2,ROUND(AVG(USCHDOWN2),2) AS USCHDOWN2,ROUND(AVG(NONSCHED),2) AS NONSCHED ,"
-                                         "ROUND(AVG((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED)),2)AS stop_loss_per  "
+                                         "ROUND(AVG((PTrate+PMrate+MTrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED)),2)AS stop_loss_per  "
                                          "from OI_system_time_2 "
                                          "where process LIKE '%1%' order by rate asc").arg(tr("ALL probe"));
     }
@@ -1241,35 +1244,35 @@ void MainWindow::on_CB_data_list_type_currentIndexChanged(const QString &arg1)
         query_txt4 = QString("select process,machine_name,machine_code,"
                                          "stop_time_calc,ROUND(rate,2) AS rate,ROUND(PTrate,2) AS PTrate,ROUND(PMrate,2) AS PMrate,ROUND(MTrate,2) AS MTrate,ROUND(Waitrate,2) AS Waitrate,"
                                          "ROUND(USCHDOWN4,2) AS USCHDOWN4 ,ROUND(USCHDOWN1,2) AS USCHDOWN1,ROUND(SCHDOWN2,2) AS SCHDOWN2,ROUND(USCHDOWN2,2) AS USCHDOWN2,ROUND(NONSCHED,2) AS NONSCHED ,"
-                                         "ROUND((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED),2)AS stop_loss_per  "
+                                         "ROUND((PTrate+PMrate+MTrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED),2)AS stop_loss_per  "
                                          "from OI_system_time_2 "
                                          "order by %1").arg(orderby_data);
     }else if(ui->CB_select_process->currentText()==tr("deposition")){
         query_txt4 = QString("select process,machine_name,machine_code,"
                                          "stop_time_calc,ROUND(rate,2) AS rate,ROUND(PTrate,2) AS PTrate,ROUND(PMrate,2) AS PMrate,ROUND(MTrate,2) AS MTrate,ROUND(Waitrate,2) AS Waitrate,"
                                          "ROUND(USCHDOWN4,2) AS USCHDOWN4 ,ROUND(USCHDOWN1,2) AS USCHDOWN1,ROUND(SCHDOWN2,2) AS SCHDOWN2,ROUND(USCHDOWN2,2) AS USCHDOWN2,ROUND(NONSCHED,2) AS NONSCHED ,"
-                                         "ROUND((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED),2)AS stop_loss_per  "
+                                         "ROUND((PTrate+PMrate+MTrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED),2)AS stop_loss_per  "
                                          "from OI_system_time_2 "
                                          "where process = '%1' order by %2").arg(tr("deposition")).arg(orderby_data);
     }else if(ui->CB_select_process->currentText()==tr("light")){
         query_txt4 = QString("select process,machine_name,machine_code,"
                                          "stop_time_calc,ROUND(rate,2) AS rate,ROUND(PTrate,2) AS PTrate,ROUND(PMrate,2) AS PMrate,ROUND(MTrate,2) AS MTrate,ROUND(Waitrate,2) AS Waitrate,"
                                          "ROUND(USCHDOWN4,2) AS USCHDOWN4 ,ROUND(USCHDOWN1,2) AS USCHDOWN1,ROUND(SCHDOWN2,2) AS SCHDOWN2,ROUND(USCHDOWN2,2) AS USCHDOWN2,ROUND(NONSCHED,2) AS NONSCHED ,"
-                                         "ROUND((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED),2)AS stop_loss_per  "
+                                         "ROUND((PTrate+PMrate+MTrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED),2)AS stop_loss_per  "
                                          "from OI_system_time_2 "
                                          "where process = '%1' order by %2").arg(tr("light")).arg(orderby_data);
     }else if(ui->CB_select_process->currentText()==tr("eatching")){
         query_txt4 = QString("select process,machine_name,machine_code,"
                                          "stop_time_calc,ROUND(rate,2) AS rate,ROUND(PTrate,2) AS PTrate,ROUND(PMrate,2) AS PMrate,ROUND(MTrate,2) AS MTrate,ROUND(Waitrate,2) AS Waitrate,"
                                          "ROUND(USCHDOWN4,2) AS USCHDOWN4 ,ROUND(USCHDOWN1,2) AS USCHDOWN1,ROUND(SCHDOWN2,2) AS SCHDOWN2,ROUND(USCHDOWN2,2) AS USCHDOWN2,ROUND(NONSCHED,2) AS NONSCHED ,"
-                                         "ROUND((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED),2)AS stop_loss_per  "
+                                         "ROUND((PTrate+PMrate+MTrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED),2)AS stop_loss_per  "
                                          "from OI_system_time_2 "
                                          "where process = '%1' order by %2").arg(tr("eatching")).arg(orderby_data);
     }else if(ui->CB_select_process->currentText()==tr("ALL probe")){
         query_txt4 = QString("select process,machine_name,machine_code,"
                                          "stop_time_calc,ROUND(rate,2) AS rate,ROUND(PTrate,2) AS PTrate,ROUND(PMrate,2) AS PMrate,ROUND(MTrate,2) AS MTrate,ROUND(Waitrate,2) AS Waitrate,"
                                          "ROUND(USCHDOWN4,2) AS USCHDOWN4 ,ROUND(USCHDOWN1,2) AS USCHDOWN1,ROUND(SCHDOWN2,2) AS SCHDOWN2,ROUND(USCHDOWN2,2) AS USCHDOWN2,ROUND(NONSCHED,2) AS NONSCHED ,"
-                                         "ROUND((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED),2)AS stop_loss_per  "
+                                         "ROUND((PTrate+PMrate+MTrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED),2)AS stop_loss_per  "
                                          "from OI_system_time_2 "
                                          "where process LIKE '%1%' order by %2").arg(tr("ALL probe")).arg(orderby_data);
     }
@@ -1313,31 +1316,31 @@ void MainWindow::on_CB_data_list_type_currentIndexChanged(const QString &arg1)
     if(ui->CB_select_process->currentText()==tr("ALLPRocess")){
         query_txt4 = QString("select process,ROUND(AVG(rate),2) AS rate,ROUND(AVG(PTrate),2) AS PTrate,ROUND(AVG(PMrate),2) AS PMrate,ROUND(AVG(MTrate),2) AS MTrate,ROUND(AVG(Waitrate),2) AS Waitrate,"
                                          "ROUND(AVG(USCHDOWN4),2) AS USCHDOWN4 ,ROUND(AVG(USCHDOWN1),2) AS USCHDOWN1,ROUND(AVG(SCHDOWN2),2) AS SCHDOWN2,ROUND(AVG(USCHDOWN2),2) AS USCHDOWN2,ROUND(AVG(NONSCHED),2) AS NONSCHED ,"
-                                         "ROUND(AVG((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED)),2)AS stop_loss_per  "
+                                         "ROUND(AVG((PTrate+PMrate+MTrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED)),2)AS stop_loss_per  "
                                          "from OI_system_time_2 "
                                          "order by rate asc");
     }else if(ui->CB_select_process->currentText()==tr("deposition")){
         query_txt4 = QString("select process,ROUND(AVG(rate),2) AS rate,ROUND(AVG(PTrate),2) AS PTrate,ROUND(AVG(PMrate),2) AS PMrate,ROUND(AVG(MTrate),2) AS MTrate,ROUND(AVG(Waitrate),2) AS Waitrate,"
                                          "ROUND(AVG(USCHDOWN4),2) AS USCHDOWN4 ,ROUND(AVG(USCHDOWN1),2) AS USCHDOWN1,ROUND(AVG(SCHDOWN2),2) AS SCHDOWN2,ROUND(AVG(USCHDOWN2),2) AS USCHDOWN2,ROUND(AVG(NONSCHED),2) AS NONSCHED ,"
-                                         "ROUND(AVG((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED)),2)AS stop_loss_per  "
+                                         "ROUND(AVG((PTrate+PMrate+MTrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED)),2)AS stop_loss_per  "
                                          "from OI_system_time_2 "
                                          "where process = '%1' order by rate asc").arg(tr("deposition"));
     }else if(ui->CB_select_process->currentText()==tr("light")){
         query_txt4 = QString("select process,ROUND(AVG(rate),2) AS rate,ROUND(AVG(PTrate),2) AS PTrate,ROUND(AVG(PMrate),2) AS PMrate,ROUND(AVG(MTrate),2) AS MTrate,ROUND(AVG(Waitrate),2) AS Waitrate,"
                                          "ROUND(AVG(USCHDOWN4),2) AS USCHDOWN4 ,ROUND(AVG(USCHDOWN1),2) AS USCHDOWN1,ROUND(AVG(SCHDOWN2),2) AS SCHDOWN2,ROUND(AVG(USCHDOWN2),2) AS USCHDOWN2,ROUND(AVG(NONSCHED),2) AS NONSCHED ,"
-                                         "ROUND(AVG((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED)),2)AS stop_loss_per  "
+                                         "ROUND(AVG((PTrate+PMrate+MTrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED)),2)AS stop_loss_per  "
                                          "from OI_system_time_2 "
                                          "where process = '%1' order by rate asc").arg(tr("light"));
     }else if(ui->CB_select_process->currentText()==tr("eatching")){
         query_txt4 = QString("select process,ROUND(AVG(rate),2) AS rate,ROUND(AVG(PTrate),2) AS PTrate,ROUND(AVG(PMrate),2) AS PMrate,ROUND(AVG(MTrate),2) AS MTrate,ROUND(AVG(Waitrate),2) AS Waitrate,"
                                          "ROUND(AVG(USCHDOWN4),2) AS USCHDOWN4 ,ROUND(AVG(USCHDOWN1),2) AS USCHDOWN1,ROUND(AVG(SCHDOWN2),2) AS SCHDOWN2,ROUND(AVG(USCHDOWN2),2) AS USCHDOWN2,ROUND(AVG(NONSCHED),2) AS NONSCHED ,"
-                                         "ROUND(AVG((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED)),2)AS stop_loss_per  "
+                                         "ROUND(AVG((PTrate+PMrate+MTrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED)),2)AS stop_loss_per  "
                                          "from OI_system_time_2 "
                                          "where process = '%1' order by rate asc").arg(tr("eatching"));
     }else if(ui->CB_select_process->currentText()==tr("ALL probe")){
         query_txt4 = QString("select process,ROUND(AVG(rate),2) AS rate,ROUND(AVG(PTrate),2) AS PTrate,ROUND(AVG(PMrate),2) AS PMrate,ROUND(AVG(MTrate),2) AS MTrate,ROUND(AVG(Waitrate),2) AS Waitrate,"
                                          "ROUND(AVG(USCHDOWN4),2) AS USCHDOWN4 ,ROUND(AVG(USCHDOWN1),2) AS USCHDOWN1,ROUND(AVG(SCHDOWN2),2) AS SCHDOWN2,ROUND(AVG(USCHDOWN2),2) AS USCHDOWN2,ROUND(AVG(NONSCHED),2) AS NONSCHED ,"
-                                         "ROUND(AVG((PTrate+PMrate+MTrate+Waitrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED)),2)AS stop_loss_per  "
+                                         "ROUND(AVG((PTrate+PMrate+MTrate+USCHDOWN4+USCHDOWN1+SCHDOWN2+USCHDOWN2+NONSCHED)),2)AS stop_loss_per  "
                                          "from OI_system_time_2 "
                                          "where process LIKE '%1%' order by rate asc").arg(tr("ALL probe"));
     }

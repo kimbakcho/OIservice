@@ -45,7 +45,7 @@ void oi_total_ratio_view::chart_update()
     PT = new QBarSet(tr("PT"));
     PM = new QBarSet(tr("PM"));
     MT = new QBarSet(tr("MT"));
-    WAIT = new QBarSet(tr("WAIT"));
+//    WAIT = new QBarSet(tr("WAIT"));
     USCHDOWN4 =new QBarSet(tr("USCHDOWN4"));
     USCHDOWN1 =new QBarSet(tr("USCHDOWN1"));
     SCHDOWN2 =new QBarSet(tr("SCHDOWN2"));
@@ -57,7 +57,7 @@ void oi_total_ratio_view::chart_update()
     connect(PT,SIGNAL(hovered(bool,int)),this,SLOT(bar_hovered(bool,int)));
     connect(PM,SIGNAL(hovered(bool,int)),this,SLOT(bar_hovered(bool,int)));
     connect(MT,SIGNAL(hovered(bool,int)),this,SLOT(bar_hovered(bool,int)));
-    connect(WAIT,SIGNAL(hovered(bool,int)),this,SLOT(bar_hovered(bool,int)));
+//    connect(WAIT,SIGNAL(hovered(bool,int)),this,SLOT(bar_hovered(bool,int)));
     connect(USCHDOWN4,SIGNAL(hovered(bool,int)),this,SLOT(bar_hovered(bool,int)));
     connect(USCHDOWN1,SIGNAL(hovered(bool,int)),this,SLOT(bar_hovered(bool,int)));
     connect(SCHDOWN2,SIGNAL(hovered(bool,int)),this,SLOT(bar_hovered(bool,int)));
@@ -74,7 +74,7 @@ void oi_total_ratio_view::chart_update()
         PT->append(ROUNDING(query5.value("PTrate").toDouble(),2));
         PM->append(ROUNDING(query5.value("PMrate").toDouble(),2));
         MT->append(ROUNDING(query5.value("MTrate").toDouble(),2));
-        WAIT->append(ROUNDING(query5.value("Waitrate").toDouble(),2));
+//        WAIT->append(ROUNDING(query5.value("Waitrate").toDouble(),2));
         USCHDOWN4->append(ROUNDING(query5.value("USCHDOWN4").toDouble(),2));
         USCHDOWN1->append(ROUNDING(query5.value("USCHDOWN1").toDouble(),2));
         SCHDOWN2->append(ROUNDING(query5.value("SCHDOWN2").toDouble(),2));
@@ -87,7 +87,7 @@ void oi_total_ratio_view::chart_update()
     series->append(PT);
     series->append(PM);
     series->append(MT);
-    series->append(WAIT);
+//    series->append(WAIT);
     series->append(USCHDOWN4);
     series->append(USCHDOWN1);
     series->append(SCHDOWN2);
@@ -101,6 +101,8 @@ void oi_total_ratio_view::chart_update()
     ratio_total_chart->createDefaultAxes();
      ratio_total_chart->setAxisX(axis,series);
      ratio_total_chart->legend()->setVisible(true);
+     ratio_total_chart->axisY()->setRange(0,110);
+
 }
 
 void oi_total_ratio_view::bar_hovered(bool status, int index)
@@ -125,10 +127,10 @@ void oi_total_ratio_view::bar_hovered(bool status, int index)
             toolTip_text = toolTip_text.append(QString("%1 = %2 \n").arg(tr("MT")).arg(MT->at(index)));
             Label_txt = Label_txt.append(QString("%1 = %2 ").arg(tr("MT")).arg(MT->at(index)));
         }
-        if(WAIT->at(index)>0){
-            toolTip_text = toolTip_text.append(QString("%1 = %2 \n").arg(tr("WAIT")).arg(WAIT->at(index)));
-            Label_txt = Label_txt.append(QString("%1 = %2 ").arg(tr("WAIT")).arg(WAIT->at(index)));
-        }
+//        if(WAIT->at(index)>0){
+//            toolTip_text = toolTip_text.append(QString("%1 = %2 \n").arg(tr("WAIT")).arg(WAIT->at(index)));
+//            Label_txt = Label_txt.append(QString("%1 = %2 ").arg(tr("WAIT")).arg(WAIT->at(index)));
+//        }
         if(USCHDOWN4->at(index)>0){
             toolTip_text = toolTip_text.append(QString("%1 = %2 \n").arg(tr("USCHDOWN4")).arg(USCHDOWN4->at(index)));
             Label_txt = Label_txt.append(QString("%1 = %2 ").arg(tr("USCHDOWN4")).arg(USCHDOWN4->at(index)));
