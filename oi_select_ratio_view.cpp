@@ -71,28 +71,31 @@ void oi_select_ratio_view::chart_update(QStringList itemlist)
 
     QSqlQuery query5(db);
     QString where_search;
-    for(int i=0;i<itemlist.size();i++){
-        if(i == itemlist.size()-1){
-            where_search.append(QString("machine_name = '%1'").arg(itemlist.at(i)));
-        }else {
-            where_search.append(QString("machine_name = '%1' OR ").arg(itemlist.at(i)));
-        }
-    }
-    query5.exec(QString("select * from OI_system_time_2 where %1").arg(where_search));
     QStringList categories;
-    while(query5.next()){
-        Nomal->append(ROUNDING(query5.value("rate").toDouble(),2));
-        PT->append(ROUNDING(query5.value("PTrate").toDouble(),2));
-        PM->append(ROUNDING(query5.value("PMrate").toDouble(),2));
-        MT->append(ROUNDING(query5.value("MTrate").toDouble(),2));
-//        WAIT->append(ROUNDING(query5.value("Waitrate").toDouble(),2));
-        USCHDOWN4->append(ROUNDING(query5.value("USCHDOWN4").toDouble(),2));
-        USCHDOWN1->append(ROUNDING(query5.value("USCHDOWN1").toDouble(),2));
-        SCHDOWN2->append(ROUNDING(query5.value("SCHDOWN2").toDouble(),2));
-        USCHDOWN2->append(ROUNDING(query5.value("USCHDOWN2").toDouble(),2));
-        NONSCHED->append(ROUNDING(query5.value("NONSCHED").toDouble(),2));
-        categories.append(query5.value("machine_name").toString());
+    for(int i=0;i<itemlist.size();i++){
+
+//        where_search.append(QString("machine_name = '%1'").arg(itemlist.at(i)));
+        query5.exec(QString("select * from OI_system_time_2 where machine_name = '%1' ").arg(itemlist.at(i)));
+        qDebug()<<query5.lastQuery();
+        while(query5.next()){
+            Nomal->append(ROUNDING(query5.value("rate").toDouble(),2));
+            PT->append(ROUNDING(query5.value("PTrate").toDouble(),2));
+            PM->append(ROUNDING(query5.value("PMrate").toDouble(),2));
+            MT->append(ROUNDING(query5.value("MTrate").toDouble(),2));
+    //        WAIT->append(ROUNDING(query5.value("Waitrate").toDouble(),2));
+            USCHDOWN4->append(ROUNDING(query5.value("USCHDOWN4").toDouble(),2));
+            USCHDOWN1->append(ROUNDING(query5.value("USCHDOWN1").toDouble(),2));
+            SCHDOWN2->append(ROUNDING(query5.value("SCHDOWN2").toDouble(),2));
+            USCHDOWN2->append(ROUNDING(query5.value("USCHDOWN2").toDouble(),2));
+            NONSCHED->append(ROUNDING(query5.value("NONSCHED").toDouble(),2));
+            categories.append(query5.value("machine_name").toString());
+        }
+
     }
+
+
+
+
     QStackedBarSeries *series = new QStackedBarSeries();
     series->append(Nomal);
     series->append(PT);
