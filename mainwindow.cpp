@@ -16,7 +16,106 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->delete_macihne->setVisible(false);
 
+    QSettings oisetting(QString("%1/%2").arg(qApp->applicationDirPath()).arg("oisetting.ini")
+                                             ,QSettings::IniFormat);
+    oisetting.beginGroup("setting");
+    QFont temp_font;
+    QString deposition_font_size = oisetting.value("deposition_font_size").toString();
+    if(deposition_font_size == ""){
+        deposition_font_size = "10";
+        ui->deposition_font_size->setText(deposition_font_size);
+    }else {
+        ui->deposition_font_size->setText(deposition_font_size);
+    }
+    QString deposition_rowsize = oisetting.value("deposition_rowsize").toString();
+    if(deposition_rowsize == ""){
+        deposition_rowsize = "30";
+        ui->deposition_rowsize->setText(deposition_rowsize);
+    }else {
+        ui->deposition_rowsize->setText(deposition_rowsize);
+    }
+    temp_font=ui->deposition_listview->font();
+    temp_font.setPointSize(deposition_font_size.toInt());
+    temp_font.setBold(true);
+    ui->deposition_listview->setFont(temp_font);
 
+    QString light_font_size = oisetting.value("light_font_size").toString();
+    if(light_font_size == ""){
+        light_font_size = "10";
+        ui->light_fontsize->setText(light_font_size);
+    }else {
+        ui->light_fontsize->setText(light_font_size);
+    }
+    QString light_rowsize = oisetting.value("light_rowsize").toString();
+    if(light_rowsize == ""){
+        light_rowsize = "30";
+        ui->light_rowsize->setText(light_rowsize);
+    }else {
+        ui->light_rowsize->setText(light_rowsize);
+    }
+    temp_font=ui->light_listview->font();
+    temp_font.setPointSize(light_font_size.toInt());
+    temp_font.setBold(true);
+    ui->light_listview->setFont(temp_font);
+
+    QString eatching_font_size = oisetting.value("eatching_font_size").toString();
+    if(eatching_font_size == ""){
+        eatching_font_size = "10";
+        ui->eatching_fontsize->setText(eatching_font_size);
+    }else {
+        ui->eatching_fontsize->setText(eatching_font_size);
+    }
+    QString eatching_rowsize = oisetting.value("eatching_rowsize").toString();
+    if(eatching_rowsize == ""){
+        eatching_rowsize = "30";
+        ui->eatching_rowsize->setText(eatching_rowsize);
+    }else {
+        ui->eatching_rowsize->setText(eatching_rowsize);
+    }
+    temp_font=ui->eatching_listview->font();
+    temp_font.setPointSize(eatching_font_size.toInt());
+    temp_font.setBold(true);
+    ui->eatching_listview->setFont(temp_font);
+
+    QString probe_font_size = oisetting.value("probe_font_size").toString();
+    if(probe_font_size == ""){
+        probe_font_size = "10";
+        ui->probe_fontsize->setText(probe_font_size);
+    }else {
+        ui->probe_fontsize->setText(probe_font_size);
+    }
+    QString probe_rowsize = oisetting.value("probe_rowsize").toString();
+    if(probe_rowsize == ""){
+        probe_rowsize = "30";
+        ui->probe_rowsize->setText(probe_rowsize);
+    }else {
+        ui->probe_rowsize->setText(probe_rowsize);
+    }
+    temp_font=ui->probe_listview->font();
+    temp_font.setPointSize(probe_font_size.toInt());
+    temp_font.setBold(true);
+    ui->probe_listview->setFont(temp_font);
+
+    QString probe1_font_size = oisetting.value("probe1_font_size").toString();
+    if(probe1_font_size == ""){
+        probe1_font_size = "10";
+        ui->probe1_fontsize->setText(probe1_font_size);
+    }else {
+        ui->probe1_fontsize->setText(probe1_font_size);
+    }
+    QString probe1_rowsize = oisetting.value("probe1_rowsize").toString();
+    if(probe1_rowsize == ""){
+        probe1_rowsize = "30";
+        ui->probe1_rowsize->setText(probe1_rowsize);
+    }else {
+        ui->probe1_rowsize->setText(probe1_rowsize);
+    }
+    temp_font=ui->probe1_listview->font();
+    temp_font.setPointSize(probe1_font_size.toInt());
+    temp_font.setBold(true);
+    ui->probe1_listview->setFont(temp_font);
+
+    oisetting.endGroup();
 
 
     QString mydb_name = QString("MY_MESDB_OI_%1").arg(QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss"));
@@ -208,6 +307,7 @@ void MainWindow::deposition_slot(machine_statue_data data)
         QLabel *machine_name = (QLabel *)ui->deposition_listview->cellWidget(i,0);
         QLabel *machine_event = (QLabel *)ui->deposition_listview->cellWidget(i,1);
         QLabel *machine_code = (QLabel *)ui->deposition_listview->cellWidget(i,2);
+        ui->deposition_listview->setRowHeight(i,ui->deposition_rowsize->text().toInt());
         if(machine_code->text() == data.getMachine_code()){
             machine_event->setText(data.getCurrent_event());
             machine_event->setStyleSheet(QString("background-color: %1").arg(data.getColor().name()));
@@ -222,6 +322,7 @@ void MainWindow::light_slot(machine_statue_data data)
         QLabel *machine_name = (QLabel *)ui->light_listview->cellWidget(i,0);
         QLabel *machine_event = (QLabel *)ui->light_listview->cellWidget(i,1);
         QLabel *machine_code = (QLabel *)ui->light_listview->cellWidget(i,2);
+        ui->light_listview->setRowHeight(i,ui->light_rowsize->text().toInt());
         if(machine_code->text() == data.getMachine_code()){
             machine_event->setText(data.getCurrent_event());
             machine_event->setStyleSheet(QString("background-color: %1").arg(data.getColor().name()));
@@ -235,6 +336,7 @@ void MainWindow::eatching_slot(machine_statue_data data)
         QLabel *machine_name = (QLabel *)ui->eatching_listview->cellWidget(i,0);
         QLabel *machine_event = (QLabel *)ui->eatching_listview->cellWidget(i,1);
         QLabel *machine_code = (QLabel *)ui->eatching_listview->cellWidget(i,2);
+        ui->eatching_listview->setRowHeight(i,ui->eatching_rowsize->text().toInt());
         if(machine_code->text() == data.getMachine_code()){
             machine_event->setText(data.getCurrent_event());
             machine_event->setStyleSheet(QString("background-color: %1").arg(data.getColor().name()));
@@ -249,6 +351,7 @@ void MainWindow::probe_slot(machine_statue_data data)
         QLabel *machine_name = (QLabel *)ui->probe_listview->cellWidget(i,0);
         QLabel *machine_event = (QLabel *)ui->probe_listview->cellWidget(i,1);
         QLabel *machine_code = (QLabel *)ui->probe_listview->cellWidget(i,2);
+        ui->probe_listview->setRowHeight(i,ui->probe_rowsize->text().toInt());
         if(machine_code->text() == data.getMachine_code()){
             machine_event->setText(data.getCurrent_event());
             machine_event->setStyleSheet(QString("background-color: %1").arg(data.getColor().name()));
@@ -263,6 +366,7 @@ void MainWindow::probe1_slot(machine_statue_data data)
         QLabel *machine_name = (QLabel *)ui->probe1_listview->cellWidget(i,0);
         QLabel *machine_event = (QLabel *)ui->probe1_listview->cellWidget(i,1);
         QLabel *machine_code = (QLabel *)ui->probe1_listview->cellWidget(i,2);
+        ui->probe1_listview->setRowHeight(i,ui->probe1_rowsize->text().toInt());
         if(machine_code->text() == data.getMachine_code()){
             machine_event->setText(data.getCurrent_event());
             machine_event->setStyleSheet(QString("background-color: %1").arg(data.getColor().name()));
@@ -1466,4 +1570,95 @@ void MainWindow::on_CB_detaildatalist_currentIndexChanged(const QString &arg1)
     probe_deatil_model.setHeaderData(0,Qt::Horizontal,tr("machine_name"));
     probe_deatil_model.setHeaderData(1,Qt::Horizontal,arg1);
 
+}
+
+
+void MainWindow::on_deposition_font_size_textEdited(const QString &arg1)
+{
+    QSettings oisetting(QString("%1/%2").arg(qApp->applicationDirPath()).arg("oisetting.ini")
+                                             ,QSettings::IniFormat);
+    oisetting.beginGroup("setting");
+    oisetting.setValue("deposition_font_size",arg1);
+    oisetting.endGroup();
+}
+
+void MainWindow::on_deposition_rowsize_textEdited(const QString &arg1)
+{
+    QSettings oisetting(QString("%1/%2").arg(qApp->applicationDirPath()).arg("oisetting.ini")
+                                             ,QSettings::IniFormat);
+    oisetting.beginGroup("setting");
+    oisetting.setValue("deposition_rowsize",arg1);
+    oisetting.endGroup();
+}
+
+void MainWindow::on_light_rowsize_textEdited(const QString &arg1)
+{
+    QSettings oisetting(QString("%1/%2").arg(qApp->applicationDirPath()).arg("oisetting.ini")
+                                             ,QSettings::IniFormat);
+    oisetting.beginGroup("setting");
+    oisetting.setValue("light_rowsize",arg1);
+    oisetting.endGroup();
+}
+
+void MainWindow::on_light_fontsize_textEdited(const QString &arg1)
+{
+    QSettings oisetting(QString("%1/%2").arg(qApp->applicationDirPath()).arg("oisetting.ini")
+                                             ,QSettings::IniFormat);
+    oisetting.beginGroup("setting");
+    oisetting.setValue("light_fontsize",arg1);
+    oisetting.endGroup();
+}
+
+void MainWindow::on_eatching_rowsize_textEdited(const QString &arg1)
+{
+    QSettings oisetting(QString("%1/%2").arg(qApp->applicationDirPath()).arg("oisetting.ini")
+                                             ,QSettings::IniFormat);
+    oisetting.beginGroup("setting");
+    oisetting.setValue("eatching_rowsize",arg1);
+    oisetting.endGroup();
+}
+
+void MainWindow::on_eatching_fontsize_textEdited(const QString &arg1)
+{
+    QSettings oisetting(QString("%1/%2").arg(qApp->applicationDirPath()).arg("oisetting.ini")
+                                             ,QSettings::IniFormat);
+    oisetting.beginGroup("setting");
+    oisetting.setValue("eatching_fontsize",arg1);
+    oisetting.endGroup();
+}
+
+void MainWindow::on_probe_rowsize_textEdited(const QString &arg1)
+{
+    QSettings oisetting(QString("%1/%2").arg(qApp->applicationDirPath()).arg("oisetting.ini")
+                                             ,QSettings::IniFormat);
+    oisetting.beginGroup("setting");
+    oisetting.setValue("probe_rowsize",arg1);
+    oisetting.endGroup();
+}
+
+void MainWindow::on_probe_fontsize_textEdited(const QString &arg1)
+{
+    QSettings oisetting(QString("%1/%2").arg(qApp->applicationDirPath()).arg("oisetting.ini")
+                                             ,QSettings::IniFormat);
+    oisetting.beginGroup("setting");
+    oisetting.setValue("probe_fontsize",arg1);
+    oisetting.endGroup();
+}
+
+void MainWindow::on_probe1_rowsize_textEdited(const QString &arg1)
+{
+    QSettings oisetting(QString("%1/%2").arg(qApp->applicationDirPath()).arg("oisetting.ini")
+                                             ,QSettings::IniFormat);
+    oisetting.beginGroup("setting");
+    oisetting.setValue("probe1_rowsize",arg1);
+    oisetting.endGroup();
+}
+
+void MainWindow::on_probe1_fontsize_textEdited(const QString &arg1)
+{
+    QSettings oisetting(QString("%1/%2").arg(qApp->applicationDirPath()).arg("oisetting.ini")
+                                             ,QSettings::IniFormat);
+    oisetting.beginGroup("setting");
+    oisetting.setValue("probe1_fontsize",arg1);
+    oisetting.endGroup();
 }

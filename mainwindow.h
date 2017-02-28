@@ -25,6 +25,8 @@
 #define DBID "EIS"
 #define DBPW "wisolfab!"
 
+#include <QSettings>
+
 namespace Ui {
 class MainWindow;
 }
@@ -56,6 +58,8 @@ public:
     QSqlQueryModel light_deatil_model;
     QSqlQueryModel eatch_deatil_model;
     QSqlQueryModel probe_deatil_model;
+
+
 
     ~MainWindow();
 
@@ -130,6 +134,27 @@ private slots:
     void on_CB_data_list_type_currentIndexChanged(const QString &arg1);
 
     void on_CB_detaildatalist_currentIndexChanged(const QString &arg1);
+
+
+    void on_deposition_font_size_textEdited(const QString &arg1);
+
+    void on_deposition_rowsize_textEdited(const QString &arg1);
+
+    void on_light_rowsize_textEdited(const QString &arg1);
+
+    void on_light_fontsize_textEdited(const QString &arg1);
+
+    void on_eatching_rowsize_textEdited(const QString &arg1);
+
+    void on_eatching_fontsize_textEdited(const QString &arg1);
+
+    void on_probe_rowsize_textEdited(const QString &arg1);
+
+    void on_probe_fontsize_textEdited(const QString &arg1);
+
+    void on_probe1_rowsize_textEdited(const QString &arg1);
+
+    void on_probe1_fontsize_textEdited(const QString &arg1);
 
 private:
     Ui::MainWindow *ui;
