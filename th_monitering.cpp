@@ -94,16 +94,20 @@ void Th_monitering::run()
         if (i == 0){
             QString msdb_name = QString("MS_MESDB_%1").arg(QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss"));
             while(true){
+                ms_mesdb.close();
+                msdb_name.append("S");
                 if(!ms_mesdb.contains(msdb_name)){
                     ms_mesdb = QSqlDatabase::addDatabase("QODBC",msdb_name);
                     QString serverinfo = "DRIVER={SQL Server};Server=10.20.10.221;Database=MESDB;Uid=fabview;Port=1433;Pwd=fabview";
                     ms_mesdb.setDatabaseName(serverinfo);
-                    if(!ms_mesdb.open()){
-                        qDebug()<<"fasle";
-                        qDebug()<<ms_mesdb.lastError().text();
-                    }else {
-                        qDebug()<<"open";
-                    }
+
+                        if(!ms_mesdb.open()){
+                            qDebug()<<"fasle";
+                            qDebug()<<ms_mesdb.lastError().text();
+                        }else {
+                            qDebug()<<"open";
+                        }
+
                     break;
                 }else {
                     msdb_name.append("S");
