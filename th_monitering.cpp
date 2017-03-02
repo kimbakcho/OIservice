@@ -31,13 +31,13 @@ void Th_monitering::run()
         QString append_txt;
         QVector<machine_statue_data> current_datalist;
         for(int i=0;i<datalist.count();i++){
-            if(i==0){
-                append_txt = append_txt.append(QString(" EQUIPMENT_ID = '%1' ").arg(datalist.at(i).getMachine_code()));
+            if(i==datalist.count()-1){
+                append_txt = append_txt.append(QString("'%1'").arg(datalist.at(i).getMachine_code()));
             }else {
-                append_txt = append_txt.append(QString(" OR EQUIPMENT_ID = '%1' ").arg(datalist.at(i).getMachine_code()));
+                append_txt = append_txt.append(QString("'%1',").arg(datalist.at(i).getMachine_code()));
             }
         }
-        query.exec(QString("select EQUIPMENT_ID,EQUIPMENT_NAME,LAST_EVENT_ID from NM_EQUIPMENT where DELETE_FLAG = 'N' AND (%1)").arg(append_txt));
+        query.exec(QString("select EQUIPMENT_ID,EQUIPMENT_NAME,LAST_EVENT_ID from NM_EQUIPMENT (NOLOCK) where EQUIPMENT_ID IN(%1) AND DELETE_FLAG = 'N'").arg(append_txt));
         while(query.next()){
             i++;
             machine_statue_data temp_data;
